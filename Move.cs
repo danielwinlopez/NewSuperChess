@@ -8,15 +8,17 @@ using System.Text;
 using Microsoft.Win32.SafeHandles;
 
 namespace NewProjectChess
-{   //Nu ska hä commitas
+{   
     public class Move
     {
-        public static Values Values { get; set; }
+        
         public Logik logic { get; set; }
-        private List<ChessPiece> pieceList; 
+        private List<ChessPiece> pieceList;
+        public Values value { get; set; }
         public Move(List<ChessPiece> pl)
         {
             this.pieceList = pl;
+            
         }
         public bool CanMove(ChessPiece piece) // metod som avgör vilket "Move" som ska tas beroende vilken pjäs den tar in
         {
@@ -92,9 +94,10 @@ namespace NewProjectChess
         //    return sortedList;
         //}
 
-        public int CheckPosition(int x, int y, ChessPiece piece) //TODO checkposition
+        public int CheckPosition(int x, int y, ChessPiece piece) 
         {
-            int Value = 0;
+           
+            int Value = -1;
             foreach (var pieces in pieceList)
             {
                 if (x != pieces.GetPositionX && 
@@ -102,13 +105,23 @@ namespace NewProjectChess
                 {
                      Value = 0; //ledig plats
                 }
-                if (x == pieces.GetPositionX && // upptagen plats av samma färg
+                else if (x == pieces.GetPositionX &&
+                    y != pieces.GetPositionY)
+                {
+                    Value = 0; //ledig plats
+                }
+                else if (x != pieces.GetPositionX &&
+                    y == pieces.GetPositionY)
+                {
+                    Value = 0; //ledig plats
+                }
+                else if (x == pieces.GetPositionX && // upptagen plats av samma färg
                          y == pieces.GetPositionY && 
                          piece.GetColor() == pieces.GetColor())
                 {
                      Value = -1; //kan inte gå på egen färg
                 }
-                if (x == pieces.GetPositionX && // upptagen plats av annan färg
+                else if (x == pieces.GetPositionX && // upptagen plats av annan färg
                          y == pieces.GetPositionY &&
                          piece.GetColor() != pieces.GetColor())
                 {
@@ -176,12 +189,14 @@ namespace NewProjectChess
                 }
             }
 
-            for (int i = 10; i >= 0; i--) // i är 10 eftersom 10(tidigare 300) är just nu kungens värde 
-            {                             //och den ska sortera ner från högsta pjäsvärde till lägsta
-                Position positionCoor = null;
-                if (resultList.Contains(i, out positionCoor)) // en out parameter == motsatsen till en in parameter. 
-                {                                                //värde sätts innanför istället för utanför metoden (kolla msdn, bra förklaring)
-                    sortedList.Add(positionCoor);
+            foreach (var item in resultList)
+            {
+                for (int i = 10; i >= 0; i--)
+                {
+                    if (item.key == i)
+                    {
+                        sortedList.Add(item.position);
+                    }
                 }
             }
             return sortedList;
@@ -196,7 +211,7 @@ namespace NewProjectChess
             var resultList = new List<Values>();
 
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 1; i < 8; i++)
             {
                 resultVal = CheckPosition(i, i, piece);
                 if (resultVal != -1)
@@ -225,13 +240,14 @@ namespace NewProjectChess
 
             }
 
-            for (int i = 10; i >= 0; i--)   // i är 10 eftersom 10(tidigare 300) är just nu kungens värde 
-            {                               //och den ska sortera ner från högsta pjäsvärde till lägsta
-                Position positionCoor = null;
-                
-                if (resultList.TryGetValue(i, out positionCoor)) // en out parameter == motsatsen till en in parameter. 
-                {                                
-                    sortedList.Add(positionCoor);
+            foreach (var item in resultList)
+            {
+                for (int i = 10; i > -1; i--)
+                {
+                    if (item.key == i)
+                    {
+                        sortedList.Add(item.position);
+                    }
                 }
             }
             return sortedList;
@@ -296,14 +312,14 @@ namespace NewProjectChess
                 }
             }
 
-            for (int i = 10; i >= 0; i--) // i är 10 eftersom 10(tidigare 300) är just nu kungens värde 
+            foreach (var item in resultList)
             {
-                //och den ska sortera ner från högsta pjäsvärde till lägsta
-                Position positionCoor = null;
-                if (resultList.TryGetValue(i, out positionCoor)) // en out parameter == motsatsen till en in parameter. 
+                for (int i = 10; i >= 0; i--)
                 {
-                    //värde sätts innanför istället för utanför metoden (kolla msdn, bra förklaring)
-                    sortedList.Add(positionCoor);
+                    if (item.key == i)
+                    {
+                        sortedList.Add(item.position);
+                    }
                 }
             }
             return sortedList;
@@ -372,15 +388,14 @@ namespace NewProjectChess
                     }
                 }
             }
-            for (int i = 10; i >= 0; i--) // i är 10 eftersom 10(tidigare 300) är just nu kungens värde 
+            foreach (var item in resultList)
             {
-                //och den ska sortera ner från högsta pjäsvärde till lägsta
-                Position positionCoor = null;
-                if (resultList.TryGetValue(i, out positionCoor))
-                // en out parameter == motsatsen till en in parameter. 
+                for (int i = 10; i >= 0; i--)
                 {
-                    //värde sätts innanför istället för utanför metoden (kolla msdn, bra förklaring)
-                    sortedList.Add(positionCoor);
+                    if (item.key == i)
+                    {
+                        sortedList.Add(item.position);
+                    }
                 }
             }
             return sortedList;
@@ -445,14 +460,14 @@ namespace NewProjectChess
                 }
             }
 
-            for (int i = 10; i >= 0; i--) // i är 10 eftersom 10(tidigare 300) är just nu kungens värde 
+            foreach (var item in resultList)
             {
-                //och den ska sortera ner från högsta pjäsvärde till lägsta
-                Position positionCoor = null;
-                if (resultList.TryGetValue(i, out positionCoor)) // en out parameter == motsatsen till en in parameter. 
+                for (int i = 10; i >= 0; i--)
                 {
-                    //värde sätts innanför istället för utanför metoden (kolla msdn, bra förklaring)
-                    sortedList.Add(positionCoor);
+                    if (item.key == i)
+                    {
+                        sortedList.Add(item.position);
+                    }
                 }
             }
             return sortedList;
@@ -492,14 +507,15 @@ namespace NewProjectChess
                     resultList.Add(new Values(resultVal, new Position(-i, i)));
                 }
             }
-            for (int i = 10; i >= 0; i--) // i är 10 eftersom 10(tidigare 300) är just nu kungens värde 
+
+            foreach (var item in resultList)
             {
-                //och den ska sortera ner från högsta pjäsvärde till lägsta
-                Position positionCoor = null;
-                if (resultList.TryGetValue(i, out positionCoor)) // en out parameter == motsatsen till en in parameter. 
+                for (int i = 10; i >= 0; i--)
                 {
-                    //värde sätts innanför istället för utanför metoden (kolla msdn, bra förklaring)
-                    sortedList.Add(positionCoor);
+                    if (item.key == i)
+                    {
+                        sortedList.Add(item.position);
+                    }
                 }
             }
             return sortedList;

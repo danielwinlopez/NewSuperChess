@@ -31,10 +31,10 @@ namespace NewProjectChess
             {
                 foreach (var piece in pieces.GetPieceList())
                 {
-                    moves.CheckPosition(piece.GetPositionX, piece.GetPositionY, piece);
-                    moves.CanMove(piece);
+                    Console.WriteLine(moves.CheckPosition(piece.GetPositionX, piece.GetPositionY, piece));
+                    moves.CanMove(piece);              
                 }
-            
+                
             pieces.setPieceList(pieces.GetPieceList());
             board.Board(pieces.GetPieceList());
             

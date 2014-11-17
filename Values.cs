@@ -8,8 +8,8 @@ namespace NewProjectChess
 {
     public class Values
     {
-        private int key;
-        private Position position;
+        public int key { get; set; }
+        public Position position { get; set; }
 
         public Values(int key, Position position)
         {
