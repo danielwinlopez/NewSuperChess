@@ -18,10 +18,6 @@ namespace NewProjectChess
 
             //Console.WriteLine();
 
-
-
-
-
             PrintBoard board = new PrintBoard();
             Pieces pieces = new Pieces();
             Move moves = new Move(pieces.GetPieceList());
@@ -41,10 +37,7 @@ namespace NewProjectChess
             Thread.Sleep(50000);
             Console.Clear();
             }
-            
         }
-
-       
     }
 }
 //object possibleMoves;

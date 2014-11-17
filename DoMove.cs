@@ -14,7 +14,5 @@ namespace NewProjectChess
             Pieces pieces = new Pieces();
             Move moves = new Move(pieces.GetPieceList());
         }
-
-
     }
 }

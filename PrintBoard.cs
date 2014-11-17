@@ -10,11 +10,11 @@ namespace NewProjectChess
     {
         public void Board(List<ChessPiece>piece )
         {
-            string[,] signBoard = FillBoard(piece);
+            var signBoard = FillBoard(piece);
 
-            for (int y = 0; y < 8; y++)
+            for (var y = 0; y < 8; y++)
             {
-                for (int x = 0; x < 8; x++)
+                for (var x = 0; x < 8; x++)
                 {
                     if (signBoard[x,y] == null)
                     {
@@ -27,7 +27,7 @@ namespace NewProjectChess
         }
         public string[,] FillBoard(List<ChessPiece> popPieces)
         {
-            string [,] board = new string[8,8];
+            var board = new string[8,8];
             foreach (var piece in popPieces)
             {
                 board[piece.GetPositionX, piece.GetPositionY] = piece.GetSign();

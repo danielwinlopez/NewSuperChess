@@ -35,18 +35,15 @@ namespace NewProjectChess
 
 
         }
-
         public override string Describe()
         {
             return "I am a Pawn, at postion "
                    + GetPositionX + ", " + GetPositionY;
         }
-
         public override string GetChessType()// kallar på denna när man vill ha ut typen
         {
             return "Pawn";
         }
-
         public override string GetColor()// när man vill ha ut color värdet på pjäsen kallas denna metod
         {
             return color;
@@ -54,7 +51,9 @@ namespace NewProjectChess
         public override string GetSign()
         {
             if (GetColor() == "White")
+            {
                 return "wP";
+            }
             else
             {
                 return "bP";
