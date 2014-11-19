@@ -8,16 +8,17 @@ using System.Text;
 using Microsoft.Win32.SafeHandles;
 
 namespace NewProjectChess
+
 {   
     public class Move
     {
-        
+        PrintBoard board = new PrintBoard();
         public Logik logic { get; set; }
         private List<ChessPiece> pieceList;
         public Values value { get; set; }
         public Move(List<ChessPiece> pl)
         {
-            this.pieceList = pl;
+            pieceList = pl;
             
         }
         public bool CanMove(ChessPiece piece) // metod som avgör vilket "Move" som ska tas beroende vilken pjäs den tar in
@@ -28,16 +29,16 @@ namespace NewProjectChess
                     MoveRook(piece);
                     break;
                 case "Bishop":
-                    MoveBishop(piece);
+                   MoveBishop(piece);
                     break;
                 case "Knight":
                     MoveKnight(piece);
                     break;
                 case "Queen":
-                    MoveQueen(piece);
+                   MoveQueen(piece);
                     break;
                 case "King":
-                    MoveKing(piece);
+                   MoveKing(piece);
                     break;
                 case "Pawn":
                     MovePawn(piece);
@@ -49,111 +50,89 @@ namespace NewProjectChess
             return false;
         }
 
-        //private List<Position> MoveRook(ChessPiece piece) // logik för rookmove
-        //{
-        //    int xpos = piece.GetPositionX; //sätter pjäsens x värde till xpos
-        //    int ypos = piece.GetPositionY; //sätter pjäsens y värde till ypos
-        //    int resultVal = -1; // står för om en pjäs med samma färg står på positionen så man inte kan gå dit
-        //    List<Position> sortedList = new List<Position>();
-        //    var resultList = new List<Values>();(); //dictionary lista 
 
-        //    for (int i = 0; i < 8; i++)
-        //    {
-        //        resultVal = CheckPosition(xpos, i, piece);
-        //        if (resultVal != -1)                                  //dictionaryListan( key-värdet = resultval och 
-        //        {                                                     //värdet = positionen med (xpos som x och i som y). 
-        //            resultList.Add(new Values(resultVal, new Position(xpos, i)); //i värdet ökar för att kolla alla y värden där x är samma
-        //        }
-        //        resultVal = CheckPosition(i, ypos, piece);
-        //        if (resultVal != -1)                                  //dictionaryListan( key-värdet = resultval och 
-        //        {                                                     //värdet = positionen med (x som i och y som ypos). 
-        //            resultList.Add(new Values(resultVal, new Position(i, ypos)); //i värdet ökar för att kolla alla x värden där y är samma
-        //        }                                                    
-        //    }
-        //    for (int i = 0; i > -8; i--)
-        //    {
-        //        resultVal = CheckPosition(xpos, i, piece);
-        //        if (resultVal != -1)                                  //dictionaryListan( key-värdet = resultval och 
-        //        {                                                     //värdet = positionen med (xpos som x och i som y). 
-        //            resultList.Add(new Values(resultVal, new Position(xpos, i)); //i värdet ökar för att kolla alla y värden där x är samma
-        //        }
-        //        resultVal = CheckPosition(i, ypos, piece);
-        //        if (resultVal != -1)                                  //dictionaryListan( key-värdet = resultval och 
-        //        {                                                     //värdet = positionen med (x som i och y som ypos). 
-        //            resultList.Add(new Values(resultVal, new Position(i, ypos)); //i värdet ökar för att kolla alla x värden där y är samma
-        //        }
-        //    }                                              
-        //    for (int i = 10; i >= 0; i--)    // i är 10 eftersom 10(tidigare 300) är just nu kungens värde 
-        //    {                                //och den ska sortera ner från högsta pjäsvärde till lägsta
-        //        Position positionCoor = null;
-        //        if (resultList.TryGetValue(i, out positionCoor)) // en out parameter == motsatsen till en in parameter. 
-        //        {                                                //värde sätts innanför istället för utanför metoden (kolla msdn, bra förklaring)
-        //            sortedList.Add(positionCoor);
-        //        }
-        //    }
-        //    return sortedList;
-        //}
-
-        public int CheckPosition(int x, int y, ChessPiece piece) 
+        public int CheckPosition(int x, int y, ChessPiece piece)
         {
-           
-            int Value = -1;
+            int value = 0;
+            bool empty = true;
+            bool myPiece = false;
+            bool friend = false;
+            //bool enemy = false;
+            string type = null;
+
             foreach (var pieces in pieceList)
             {
-                if (x != pieces.GetPositionX && 
-                    y != pieces.GetPositionY)
+
+                //if (x == pieces.GetPositionX && y == pieces.GetPositionY && piece.GetColor() != pieces.GetColor())
+                //{
+                //    empty = false;
+                //}
+                if (x == pieces.GetPositionX && y == pieces.GetPositionY && piece.GetColor() == pieces.GetColor())
                 {
-                     Value = 0; //ledig plats
+                    myPiece = true;
+                    empty = false;
                 }
-                else if (x == pieces.GetPositionX &&
-                    y != pieces.GetPositionY)
+                if (!myPiece && x != pieces.GetPositionX && y != pieces.GetPositionY &&
+                    piece.GetColor() == pieces.GetColor())
                 {
-                    Value = 0; //ledig plats
+                    friend = true;
+                    empty = false;
                 }
-                else if (x != pieces.GetPositionX &&
-                    y == pieces.GetPositionY)
+                if (!myPiece && x != pieces.GetPositionX && y != pieces.GetPositionY &&
+                    piece.GetColor() != pieces.GetColor())
                 {
-                    Value = 0; //ledig plats
+                    friend = false;
+                    empty = false;
+                    type = pieces.GetChessType();
                 }
-                else if (x == pieces.GetPositionX && // upptagen plats av samma färg
-                         y == pieces.GetPositionY && 
-                         piece.GetColor() == pieces.GetColor())
+
+            }
+            if (empty)
+            {
+                value = 0;
+            }
+            else if (myPiece && friend) //Vad finns på platsen (är det min egna pjäs)                     
+            {
+                //om inte min pjäs är de annan färg                       
+                value = -1;
+            }
+            else if (!friend)
+            {
+                switch (type) //värde på fienden
                 {
-                     Value = -1; //kan inte gå på egen färg
-                }
-                else if (x == pieces.GetPositionX && // upptagen plats av annan färg
-                         y == pieces.GetPositionY &&
-                         piece.GetColor() != pieces.GetColor())
-                {
-                    switch (pieces.GetChessType()) //värde på fienden
-                    {
-                        case "Pawn":
-                            Value = 1;
-                            break;
-                        case "Bishop":
-                            Value = 2;
-                            break;
-                        case "Rook":
-                            Value = 3;
-                            break;
-                        case "Knight":
-                            Value = 4;
-                            break;
-                        case "Queen":
-                            Value = 6;
-                            break;
-                        case "King":
-                            Value = 10;
-                            break;
-                        default:
-                            Console.WriteLine("Unkown piece type!");
-                                // körs när något går riktigt fel                   
-                            break;
-                    }
+                    case "Pawn":
+                        value = 1;
+                        break;
+                    case "Bishop":
+                        value = 2;
+                        break;
+                    case "Rook":
+                        value = 3;
+                        break;
+                    case "Knight":
+                        value = 4;
+                        break;
+                    case "Queen":
+                        value = 6;
+                        break;
+                    case "King":
+                        value = 10;
+                        break;
+                    default:
+                        Console.WriteLine("Unkown piece type!");
+                        // körs när något går riktigt fel                   
+                        break;
                 }
             }
-            return Value;
+            else
+            {
+                Console.WriteLine("Error");
+            }
+
+            return value;
         }
+
+
 
         public List<Position> MoveRook(ChessPiece piece) // Scannar RookMoves
         {
@@ -166,27 +145,17 @@ namespace NewProjectChess
             for (int i = 0; i < 8; i++)
             {
                 resultVal = CheckPosition(xpos, i, piece);
-                if (resultVal != -1) 
-                {                   
-                    resultList.Add(new Values(resultVal, new Position(xpos, i)));                   
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos, i)));
                 }
 
                 resultVal = CheckPosition(i, ypos, piece);
-                if (resultVal != -1) 
-                {                  
-                    resultList.Add(new Values(resultVal, new Position(i, ypos)));                 
-                }
-
-                resultVal = CheckPosition(-i, ypos, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(-i, ypos)));
+                    resultList.Add(new Values(resultVal, new Position(i, ypos)));
                 }
-                resultVal = CheckPosition(xpos, -i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(xpos, -i)));
-                }
+              
             }
 
             foreach (var item in resultList)
@@ -213,30 +182,17 @@ namespace NewProjectChess
 
             for (int i = 1; i < 8; i++)
             {
-                resultVal = CheckPosition(i, i, piece);
+                resultVal = CheckPosition(xpos +i, i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(i, i)));
+                    resultList.Add(new Values(resultVal, new Position(xpos +i, i)));
                 }
 
-                resultVal = CheckPosition(-i, i, piece);
+                resultVal = CheckPosition(i, ypos + i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(-i, i)));
+                    resultList.Add(new Values(resultVal, new Position(i, ypos+i)));
                 }
-
-                resultVal = CheckPosition(-i, -i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(-i, -i)));
-                }
-
-                resultVal = CheckPosition(i, -i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(i, -i)));
-                }
-
 
             }
 
@@ -275,41 +231,18 @@ namespace NewProjectChess
                     resultList.Add(new Values(resultVal, new Position(i, ypos)));
                 }
 
-                resultVal = CheckPosition(-i, ypos, piece);
+
+                resultVal = CheckPosition(xpos + i, i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(-i, ypos)));
+                    resultList.Add(new Values(resultVal, new Position(xpos + i, i)));
                 }
 
-                resultVal = CheckPosition(xpos, -i, piece);
+                resultVal = CheckPosition(i, ypos + i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos, -i)));
-                }
-
-                resultVal = CheckPosition(i, i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(i, i)));
-                }
-
-                resultVal = CheckPosition(-i, i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(-i, i)));
-                }
-
-                resultVal = CheckPosition(-i, -i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(-i, -i)));
-                }
-
-                resultVal = CheckPosition(i, -i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(i, -i)));
-                }
+                    resultList.Add(new Values(resultVal, new Position(i, ypos + i)));
+                }           
             }
 
             foreach (var item in resultList)
@@ -342,64 +275,31 @@ namespace NewProjectChess
                         resultVal = CheckPosition(k, j, piece);
                         if (resultVal != -1)
                         {
-                            resultList.Add(new Values(resultVal, new Position(k, j)));
+                            resultList.Add(new Values(resultVal, new Position(xpos + k, j)));
                         }
                         resultVal = CheckPosition(-k, j, piece);
                         if (resultVal != -1)
                         {
-                            resultList.Add(new Values(resultVal, new Position(-k, j)));
+                            resultList.Add(new Values(resultVal, new Position(k, j + ypos)));
                         }
-                        resultVal = CheckPosition(k, -j, piece);
-                        if (resultVal != -1)
-                        {
-                            resultList.Add(new Values(resultVal, new Position(k, -j)));
-                        }
-                        resultVal = CheckPosition(-k, -j, piece);
-                        if (resultVal != -1)
-                        {
-                            resultList.Add(new Values(resultVal, new Position(-k, -j)));
-                        }
+
                     }
                 }
-                for (int j = 0; j < 3; j++)
-                {
-                    for (int k = 0; k < 2; k++)
-                    {
-                        resultVal = CheckPosition(k, j, piece);
-                        if (resultVal != -1)
-                        {
-                            resultList.Add(new Values(resultVal, new Position(k, j)));
-                        }
-                        resultVal = CheckPosition(-k, j, piece);
-                        if (resultVal != -1)
-                        {
-                            resultList.Add(new Values(resultVal, new Position(-k, j)));
-                        }
-                        resultVal = CheckPosition(k, -j, piece);
-                        if (resultVal != -1)
-                        {
-                            resultList.Add(new Values(resultVal, new Position(k, -j)));
-                        }
-                        resultVal = CheckPosition(-k, -j, piece);
-                        if (resultVal != -1)
-                        {
-                            resultList.Add(new Values(resultVal, new Position(-k, -j)));
-                        }
-                    }
-                }
+                
             }
             foreach (var item in resultList)
-            {
-                for (int i = 10; i >= 0; i--)
                 {
-                    if (item.key == i)
+                    for (int i = 10; i >= 0; i--)
                     {
-                        sortedList.Add(item.position);
+                        if (item.key == i)
+                        {
+                            sortedList.Add(item.position);
+                        }
                     }
                 }
+                return sortedList;
             }
-            return sortedList;
-        }
+        
 
         public List<Position> MoveKing(ChessPiece piece) // Scannar KingMoves
         {
@@ -421,43 +321,20 @@ namespace NewProjectChess
                 if (resultVal != -1)
                 {
                     resultList.Add(new Values(resultVal, new Position(i, ypos)));
-                }
-
-                resultVal = CheckPosition(-i, ypos, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(-i, ypos)));
-                }
-
-                resultVal = CheckPosition(xpos, -i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(xpos, -i)));
-                }
+                }     
 
                 resultVal = CheckPosition(i, i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(i, i)));
+                    resultList.Add(new Values(resultVal, new Position(xpos +i, i)));
                 }
 
                 resultVal = CheckPosition(-i, i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(-i, i)));
+                    resultList.Add(new Values(resultVal, new Position(i, i+ypos)));
                 }
 
-                resultVal = CheckPosition(-i, -i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(-i, -i)));
-                }
-
-                resultVal = CheckPosition(i, -i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(i, -i)));
-                }
             }
 
             foreach (var item in resultList)
@@ -475,6 +352,7 @@ namespace NewProjectChess
 
         public List<Position> MovePawn(ChessPiece piece) // Scannar PawnMoves
         {
+            bool firstMove = true;
             int xpos = piece.GetPositionX; //sätter pjäsens x värde till xpos
             int ypos = piece.GetPositionY; //sätter pjäsens y värde till ypos
             int resultVal = -1; // står för om en pjäs med samma färg står på positionen så man inte kan gå dit
@@ -484,28 +362,43 @@ namespace NewProjectChess
             for (int i = 0; i < 2; ++i)
             {
                 resultVal = CheckPosition(xpos, i, piece);
-                if (resultVal != -1) //dictionaryListan( key-värdet = resultval och 
+                if (resultVal != -1) 
                 {
                     resultList.Add(new Values(resultVal, new Position(xpos, i)));
                 }
 
-                resultVal = CheckPosition(xpos, i + 1, piece);
-                if (resultVal != -1)
+                if (firstMove)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos, i + 1)));
+                    for (int j = 0; j < 3; j++)
+                    {
+                        resultVal = CheckPosition(xpos, j, piece);     //i en if-sats som kollar om det är första draget om första draget kontrollera om bonden kan ta två steg annars skit i denna kollen.
+                        if (resultVal != -1)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos, j)));
+                        }
+                        firstMove = false;
+                    }       
                 }
+                foreach (var chessPiece in pieceList)
+                {  
+                    //finns de någon på denna positionen av motsatt färg
+                    if (xpos + 1 == chessPiece.GetPositionX && ypos + 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
+                    {
+                        resultVal = CheckPosition(i, i, piece);
+                        if (resultVal != -1)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(i, i)));
+                        }
+                    }
 
-                resultVal = CheckPosition(i, i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(i, i)));
-                }
-
-                resultVal = CheckPosition(-i, i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(-i, i)));
-                }
+                    //finns de någon på denna positionen av motsatt färg
+                    if (xpos - 1 == chessPiece.GetPositionX && ypos + 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
+                    resultVal = CheckPosition(-i, i, piece);
+                    if (resultVal != -1)
+                    {
+                        resultList.Add(new Values(resultVal, new Position(-i, i)));
+                    }
+                }                         
             }
 
             foreach (var item in resultList)

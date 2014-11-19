@@ -12,7 +12,9 @@ namespace NewProjectChess
         public Player(string color)
         {
             this.color = color;
+
             
         }
+
     }
 }

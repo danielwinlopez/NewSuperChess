@@ -26,13 +26,14 @@ namespace NewProjectChess
             Pieces pieces = new Pieces();
             Move moves = new Move(pieces.GetPieceList());
             Logik logic = new Logik();
-
+            int i = 0;
             while (true)
             {
                 foreach (var piece in pieces.GetPieceList())
                 {
-                    Console.WriteLine(moves.CheckPosition(piece.GetPositionX, piece.GetPositionY, piece));
-                    moves.CanMove(piece);              
+                    Console.Write(moves.CheckPosition(piece.GetPositionX, piece.GetPositionY, piece));
+                    
+                    Console.WriteLine("="+i++);//Console.WriteLine(moves.CanMove(piece));
                 }
                 
             pieces.setPieceList(pieces.GetPieceList());

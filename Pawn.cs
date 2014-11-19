@@ -16,6 +16,7 @@ namespace NewProjectChess
             GetPositionY = y;
             this.color = color;
 
+
             Moves.Add(new List<Position>
             {
                 new Position(0, 1)
