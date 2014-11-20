@@ -5,8 +5,7 @@ using System.Text;
 
 namespace NewProjectChess
 {
-    public class Rook : ChessPiece
-    {
+    public class Rook : ChessPiece{
 
         public static List<List<Position>> Moves = new List<List<Position>>();
 

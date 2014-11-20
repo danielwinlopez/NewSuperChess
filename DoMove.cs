@@ -8,7 +8,6 @@ namespace NewProjectChess
 {
     class DoMove
     {
-
         public DoMove()
         {
             Pieces pieces = new Pieces();

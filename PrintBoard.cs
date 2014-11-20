@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NewProjectChess
 {
-    class PrintBoard
+    public class PrintBoard
     {
         public void Board(List<ChessPiece>piece )
         {

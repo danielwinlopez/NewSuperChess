@@ -8,6 +8,7 @@ namespace NewProjectChess
     public class Pieces
     {
         private List<ChessPiece> pieceList = null;
+        public Move PossibleMoves { get; set; }
 
         public Pieces()
         {
@@ -24,7 +25,7 @@ namespace NewProjectChess
                 new Pawn(7, 1 ,"White"),
                 new Knight(6, 0, "White"),
                 new Knight(1, 0, "White"),
-                new Bishop(3, 3, "White"),
+                new Bishop(2, 0, "White"),
                 new Bishop(5, 0, "White"),
                 new Rook(7, 0, "White"),
                 new Rook(0, 0, "White"),

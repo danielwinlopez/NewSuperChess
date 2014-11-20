@@ -58,6 +58,7 @@ namespace NewProjectChess
                 new Position(-6, -6),
                 new Position(-7, -7)
             });
+
             Moves.Add(new List<Position>
             {
                 new Position(0, 1),
@@ -68,7 +69,6 @@ namespace NewProjectChess
                 new Position(0, 6),
                 new Position(0, 7)
             });
-
             
             Moves.Add(new List<Position>
             {
