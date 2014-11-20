@@ -12,16 +12,14 @@ namespace NewProjectChess
 {   
     public class Move
     {
-        PrintBoard board = new PrintBoard();
-        public Logik logic { get; set; }
+        PrintBoard board = new PrintBoard();  
         private List<ChessPiece> pieceList;
         public Values value { get; set; }
-        public Move(List<ChessPiece> pl)
+        public Move(List<ChessPiece> pieceList)
         {
-            pieceList = pl;
-            
+            this.pieceList = pieceList;        
         }
-        public bool CanMove(ChessPiece piece) // metod som avgör vilket "Move" som ska tas beroende vilken pjäs den tar in
+        public void CanMove(ChessPiece piece) // metod som avgör vilket "Move" som ska tas beroende vilken pjäs den tar in
         {
             switch (piece.GetChessType())
             {
@@ -47,7 +45,7 @@ namespace NewProjectChess
                     Console.WriteLine("Unknown piece type!"); // körs när något går riktigt fel
                     break;
             }
-            return false;
+            
         }
 
 
@@ -56,30 +54,27 @@ namespace NewProjectChess
 
             int value = 0;
             bool empty = true;
-            bool myPiece = false;
+            //bool myPiece = false; // kan vi ta bort
             bool friend = false;
-            //bool enemy = false;
+            //bool enemy = false; //kan vi ta bort
             string type = null;
 
             foreach (var pieces in pieceList)
             {
 
-                //if (x == pieces.GetPositionX && y == pieces.GetPositionY && piece.GetColor() != pieces.GetColor())
-                //{
+                //if (x == piece.GetPositionX && y == piece.GetPositionY && piece.GetColor() == pieces.GetColor()) // DEN HÄR DELEN FÖRSTÖRDE 
+                //{                                                                                                //ALLT MEN NU E DET BRA!!!!
+                //    myPiece = true;
                 //    empty = false;
                 //}
-                if (x == pieces.GetPositionX && y == pieces.GetPositionY && piece.GetColor() == pieces.GetColor())
-                {
-                    myPiece = true;
-                    empty = false;
-                }
-                if (!myPiece && x != pieces.GetPositionX && y != pieces.GetPositionY &&
+
+                if ( x == pieces.GetPositionX && y == pieces.GetPositionY && // kollar om det står en vän på platsen vi e på
                     piece.GetColor() == pieces.GetColor())
                 {
                     friend = true;
                     empty = false;
                 }
-                if (!myPiece && x != pieces.GetPositionX && y != pieces.GetPositionY &&
+                if (x == pieces.GetPositionX && y == pieces.GetPositionY && // kollar om det står en fiende på platsen vi e på
                     piece.GetColor() != pieces.GetColor())
                 {
                     friend = false;
@@ -92,12 +87,11 @@ namespace NewProjectChess
             {
                 value = 0;
             }
-            else if (myPiece && friend) //Vad finns på platsen (är det min egna pjäs)                     
-            {
-                //om inte min pjäs är de annan färg                       
+            else if (friend)                      
+            {                                
                 value = -1;
             }
-            else if (!friend)
+            else if (!friend )
             {
                 switch (type) //värde på fienden
                 {
@@ -358,7 +352,7 @@ namespace NewProjectChess
             int ypos = piece.GetPositionY; //sätter pjäsens y värde till ypos
             int resultVal = -1; // står för om en pjäs med samma färg står på positionen så man inte kan gå dit
             List<Position> sortedList = new List<Position>();
-            var resultList = new List<Values>(); //dictionary lista 
+            var resultList = new List<Values>(); 
 
             for (int i = 0; i < 2; ++i)
             {
