@@ -51,21 +51,16 @@ namespace NewProjectChess
                 new Rook(0, 7, "Black"),
                 new Queen(3, 7, "Black"),
                 new King(4, 7, "Black")
-
-    
             };
             
         }
-
         public List<ChessPiece> GetPieceList() // Metod som kallas när man vill ha ut listan
         {
             return pieceList;
         }
-
         public void setPieceList(List<ChessPiece> pl) // metod som kallas när listan ska uppdateras
         {
             pieceList = pl;
         }
-
     }
 }

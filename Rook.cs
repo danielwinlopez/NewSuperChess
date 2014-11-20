@@ -26,7 +26,6 @@ namespace NewProjectChess
                 new Position(0, 6),
                 new Position(0, 7)
             });
-
                                     //Neråt
             Moves.Add(new List<Position>
             {
@@ -62,18 +61,15 @@ namespace NewProjectChess
             });
 
         }
-
         public override string Describe()
         {
             return "I am a Rook, at postion "
                    + GetPositionX + ", " + GetPositionY;
         }
-
         public override string GetChessType()// kallar på denna när man vill ha ut typen
         {
             return "Rook";
         }
-
         public override string GetColor()// när man vill ha ut color värdet på pjäsen kallas denna metod
         {
             return color;

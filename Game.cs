@@ -7,5 +7,6 @@ namespace NewProjectChess
 {
     public class Game
     {
+
     }
 }

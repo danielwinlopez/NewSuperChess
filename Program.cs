@@ -18,10 +18,6 @@ namespace NewProjectChess
 
             //Console.WriteLine();
 
-
-
-
-
             PrintBoard board = new PrintBoard();
             Pieces pieces = new Pieces();
             Move moves = new Move(pieces.GetPieceList());
@@ -31,8 +27,8 @@ namespace NewProjectChess
             {
                 foreach (var piece in pieces.GetPieceList())
                 {
-                    Console.Write(moves.CheckPosition(piece.GetPositionX, piece.GetPositionY, piece));
-                    
+
+                    Console.Write(moves.CheckPosition(piece.GetPositionX, piece.GetPositionY, piece));                 
                     Console.WriteLine("="+i++);//Console.WriteLine(moves.CanMove(piece));
                 }
                 
@@ -42,10 +38,7 @@ namespace NewProjectChess
             Thread.Sleep(50000);
             Console.Clear();
             }
-            
         }
-
-       
     }
 }
 //object possibleMoves;

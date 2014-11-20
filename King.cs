@@ -58,23 +58,19 @@ namespace NewProjectChess
             });
 
         }
-
         public override string Describe()
         {
             return "I am a King, at postion "
                    + GetPositionX + ", " + GetPositionY;
         }
-
         public override string GetChessType() // kallar på denna när man vill ha ut typen
         {
             return "King";
         }
-
         public override string GetColor() // när man vill ha ut color värdet på pjäsen kallas denna metod
         {
             return color;
         }
-
         public override string GetSign()
         {
             if (GetColor() == "White")

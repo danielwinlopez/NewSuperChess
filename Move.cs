@@ -53,6 +53,7 @@ namespace NewProjectChess
 
         public int CheckPosition(int x, int y, ChessPiece piece)
         {
+
             int value = 0;
             bool empty = true;
             bool myPiece = false;

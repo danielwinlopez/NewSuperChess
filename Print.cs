@@ -14,6 +14,5 @@ namespace NewProjectChess
                 Console.WriteLine(chessPiece.Describe());
             }
         }
-
     }
 }
