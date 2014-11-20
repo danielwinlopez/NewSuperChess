@@ -49,7 +49,6 @@ namespace NewProjectChess
                 new Queen(3, 7, "Black"),
                 new King(4, 7, "Black")
             };
-            
         }
         public List<ChessPiece> GetPieceList() // Metod som kallas när man vill ha ut listan
         {

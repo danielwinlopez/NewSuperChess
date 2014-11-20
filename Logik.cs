@@ -166,8 +166,6 @@ namespace NewProjectChess
                 {
                     resultList.Add(resultVal, new Position(i, -i));
                 }
-
-
             }
 
             for (int i = 10; i >= 0; i--) // i är 10 eftersom 10(tidigare 300) är just nu kungens värde 
@@ -372,6 +370,5 @@ namespace NewProjectChess
             }
             return sortedList;
         }
-        
     }
 }

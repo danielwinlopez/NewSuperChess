@@ -11,7 +11,6 @@ namespace NewProjectChess
 {   
     public class Move
     {
-        
         public Logik logic { get; set; }
         private List<ChessPiece> pieceList;
         public Values value { get; set; }
@@ -95,8 +94,7 @@ namespace NewProjectChess
 
         public int CheckPosition(int x, int y, ChessPiece piece) 
         {
-           
-            int Value = -1;
+           int Value = -1;
             foreach (var pieces in pieceList)
             {
                 if (x != pieces.GetPositionX && 
@@ -283,7 +281,6 @@ namespace NewProjectChess
             List<Position> sortedList = new List<Position>();
             var resultList = new List<Values>();
 
-
             for (int i = 1; i < 8; i++)
             {
                 resultVal = CheckPosition(i, i, piece);
@@ -309,8 +306,6 @@ namespace NewProjectChess
                 {
                     resultList.Add(new Values(resultVal, new Position(i, -i)));
                 }
-
-
             }
 
             foreach (var item in resultList)
@@ -513,7 +508,5 @@ namespace NewProjectChess
             }
             return sortedList;
         }
-
-
     }
 }

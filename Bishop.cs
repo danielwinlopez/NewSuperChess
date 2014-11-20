@@ -9,7 +9,6 @@ namespace NewProjectChess
     class Bishop :ChessPiece
     {
         public static List<List<Position>> Moves = new List<List<Position>>();
-
         public Bishop(int x, int y, string color)
         {
             GetPositionX = x;

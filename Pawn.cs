@@ -31,10 +31,8 @@ namespace NewProjectChess
             Moves.Add(new List<Position>
             {
                 new Position(1, 1)
-            });                                   
-
-
-        }
+            });                               
+       }
         public override string Describe()
         {
             return "I am a Pawn, at postion "

@@ -9,7 +9,6 @@ namespace NewProjectChess
     class Queen :ChessPiece
     {
         public static List<List<Position>> Moves = new List<List<Position>>();
-
         public Queen(int x, int y, string color)
         {
             GetPositionX = x;
@@ -103,7 +102,6 @@ namespace NewProjectChess
                 new Position(6, 0),
                 new Position(7, 0)
             });
-
         }
         public override string Describe()
         {
