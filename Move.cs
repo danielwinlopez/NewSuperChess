@@ -57,12 +57,7 @@ namespace NewProjectChess
 
             foreach (var pieces in pieceList)
             {
-                //if (x == piece.GetPositionX && y == piece.GetPositionY && piece.GetColor() == pieces.GetColor()) // DEN HÄR DELEN FÖRSTÖRDE 
-                //{                                                                                                //ALLT MEN NU E DET BRA!!!!
-                //    myPiece = true;
-                //    empty = false;
-                //}
-
+                
                 if ( x == pieces.GetPositionX && y == pieces.GetPositionY && // kollar om det står en vän på platsen vi e på
                     piece.GetColor() == pieces.GetColor())
                 {
@@ -113,11 +108,6 @@ namespace NewProjectChess
                         break;
                 }
             }
-            //else
-            //{
-            //    Console.WriteLine("Error");
-            //}
-
             return value;
         }
         public List<Position> MoveRook(ChessPiece piece) // Scannar RookMoves
@@ -353,7 +343,7 @@ namespace NewProjectChess
                     //finns de någon på denna positionen av motsatt färg
                     if (xpos + 1 == chessPiece.GetPositionX && ypos + 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
                     {
-                        resultVal = CheckPosition(i, i, piece);
+                        resultVal = CheckPosition(xpos + i, i, piece);
                         if (resultVal != -1)
                         {
                             resultList.Add(new Values(resultVal, new Position(i, i)));

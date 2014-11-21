@@ -28,22 +28,3 @@ namespace NewProjectChess
         }
     }
 }
-//public int CurrentPosition
-//{
-//    get
-//    {
-//        throw new System.NotImplementedException();
-//    }
-//    set
-//    {
-//    }
-//}
-//public void ChangePosition()
-//{
-//    // This method will have to get activated after the NewPosition() has calculated the best move "new position".
-//    //And then move the piece, change the Currentposition property to the new position.
-//}
-//public void NewPostion()
-//{
-//    throw new System.NotImplementedException();
-//}

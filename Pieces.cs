@@ -9,7 +9,6 @@ namespace NewProjectChess
     {
         private List<ChessPiece> pieceList = null;
         public Move PossibleMoves { get; set; }
-
         public Pieces()
         {
             pieceList = new List<ChessPiece>
