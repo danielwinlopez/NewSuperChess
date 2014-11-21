@@ -35,7 +35,7 @@ namespace NewProjectChess
                 new King(3, 0, "White"),         
 
                 //Svarta Pjäser
-                new Pawn(0, 6 ,"Black"),
+                new Pawn(3, 1 ,"Black"),
                 new Pawn(1, 6 ,"Black"),
                 new Pawn(2, 6 ,"Black"),
                 new Pawn(3, 6 ,"Black"),

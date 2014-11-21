@@ -316,53 +316,104 @@ namespace NewProjectChess
             int ypos = piece.GetPositionY; //sätter pjäsens y värde till ypos
             int resultVal = -1; // står för om en pjäs med samma färg står på positionen så man inte kan gå dit
             List<Position> sortedList = new List<Position>();
-            var resultList = new List<Values>(); 
-
-            for (int i = 1; i < 2; ++i)
+            var resultList = new List<Values>();
+            if (piece.GetColor()=="White")
             {
-                resultVal = CheckPosition(xpos, ypos + i, piece);
-                if (resultVal > 0)
+                for (int i = 1; i < 2; ++i)
                 {
-                    resultVal = -1;
-                }
-                if (resultVal == 0) 
-                {
-                    resultList.Add(new Values(resultVal, new Position(xpos, ypos + i)));
-                }
+                    resultVal = CheckPosition(xpos, ypos + i, piece);
+                    if (resultVal > 0)
+                    {
+                        resultVal = -1;
+                    }
+                    if (resultVal == 0)
+                    {
+                        resultList.Add(new Values(resultVal, new Position(xpos, ypos + i)));
+                    }
 
-                if (firstMove && resultVal == 0)
-                {
-                    for (int j = 1; j < 3; j++)
+                    if (firstMove && resultVal == 0)
                     {
-                        resultVal = CheckPosition(xpos, ypos + j, piece);     //i en if-sats som kollar om det är första draget om första draget kontrollera om bonden kan ta två steg annars skit i denna kollen.
-                        if (resultVal != -1)
+                        for (int j = 1; j < 3; j++)
                         {
-                            resultList.Add(new Values(resultVal, new Position(xpos, ypos + j)));
+                            resultVal = CheckPosition(xpos, ypos + j, piece);     //i en if-sats som kollar om det är första draget om första draget kontrollera om bonden kan ta två steg annars skit i denna kollen.
+                            if (resultVal != -1)
+                            {
+                                resultList.Add(new Values(resultVal, new Position(xpos, ypos + j)));
+                            }
+                            firstMove = false;
                         }
-                        firstMove = false;
-                    }       
+                    }
+                    foreach (var chessPiece in pieceList)
+                    {
+                        //finns de någon på denna positionen av motsatt färg
+                        if (xpos + 1 == chessPiece.GetPositionX && ypos + 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
+                        {
+                            resultVal = CheckPosition(xpos + i, ypos + i, piece);
+                            if (resultVal != -1)
+                            {
+                                resultList.Add(new Values(resultVal, new Position(xpos + i, ypos + i)));
+                            }
+                        }
+                        //finns de någon på denna positionen av motsatt färg
+                        if (xpos - 1 == chessPiece.GetPositionX && ypos + 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
+                        {
+                            resultVal = CheckPosition(xpos - i, ypos + i, piece);
+                            if (resultVal != -1)
+                            {
+                                resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + i)));
+                            }
+                        }
+                    }
                 }
-                foreach (var chessPiece in pieceList)
-                {  
-                    //finns de någon på denna positionen av motsatt färg
-                    if (xpos + 1 == chessPiece.GetPositionX && ypos + 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
+            }
+            else // gäller för black pawn
+            {
+                for (int i = 1; i < 2; ++i)
+                {
+                    resultVal = CheckPosition(xpos, ypos - i, piece);
+                    if (resultVal > 0)
                     {
-                        resultVal = CheckPosition(xpos + i, ypos + i, piece);
-                        if (resultVal != -1)
+                        resultVal = -1;
+                    }
+                    if (resultVal == 0)
+                    {
+                        resultList.Add(new Values(resultVal, new Position(xpos, ypos - i)));
+                    }
+
+                    if (firstMove && resultVal == 0)
+                    {
+                        for (int j = 1; j < 3; j++)
                         {
-                            resultList.Add(new Values(resultVal, new Position(xpos+ i, ypos + i)));
+                            resultVal = CheckPosition(xpos, ypos - j, piece);     //i en if-sats som kollar om det är första draget om första draget kontrollera om bonden kan ta två steg annars skit i denna kollen.
+                            if (resultVal != -1)
+                            {
+                                resultList.Add(new Values(resultVal, new Position(xpos, ypos - j)));
+                            }
+                            firstMove = false;
                         }
                     }
-                    //finns de någon på denna positionen av motsatt färg
-                    if (xpos - 1 == chessPiece.GetPositionX && ypos + 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
+                    foreach (var chessPiece in pieceList)
                     {
-                        resultVal = CheckPosition(xpos-i, ypos+i, piece);
-                        if (resultVal != -1)
+                        //finns de någon på denna positionen av motsatt färg
+                        if (xpos + 1 == chessPiece.GetPositionX && ypos - 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
                         {
-                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + i)));
+                            resultVal = CheckPosition(xpos + i, ypos - i, piece);
+                            if (resultVal != -1)
+                            {
+                                resultList.Add(new Values(resultVal, new Position(xpos + i, ypos - i)));
+                            }
+                        }
+                        //finns de någon på denna positionen av motsatt färg
+                        if (xpos - 1 == chessPiece.GetPositionX && ypos - 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
+                        {
+                            resultVal = CheckPosition(xpos - i, ypos - i, piece);
+                            if (resultVal != -1)
+                            {
+                                resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                            }
                         }
                     }
-                }                         
+                }
             }
             foreach (var item in resultList)
             {
