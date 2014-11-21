@@ -11,6 +11,7 @@ namespace NewProjectChess
         public int key { get; set; }
         public Position position { get; set; }
 
+
         public Values(int key, Position position)
         {
             this.key = key;
