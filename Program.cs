@@ -19,8 +19,11 @@ namespace NewProjectChess
             {
                 foreach (var piece in pieces.GetPieceList()) //TODO: vi måste automatisera x och y pos beroende på vilken pjäs vi skickar in så att det ökar efter pjäsens steg
                 {                    
-                        Console.Write(moves.CheckPosition(piece.GetPositionX, 0, piece)); // här sätter vi positionerna vi vill kolla!
-                        Console.WriteLine("=" + i++);//Console.WriteLine(moves.CanMove(piece));                          
+                        //Console.Write(moves.CheckPosition(piece.GetPositionX, 0, piece)); // här sätter vi positionerna vi vill kolla!
+                        //Console.WriteLine("=" + i++);//Console.WriteLine(moves.CanMove(piece));
+                    Console.WriteLine();
+                    moves.CanMove(piece); 
+     
                 }
             pieces.setPieceList(pieces.GetPieceList());
             board.Board(pieces.GetPieceList());

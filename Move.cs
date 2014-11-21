@@ -46,7 +46,7 @@ namespace NewProjectChess
                     break;
             }
         }
-        public int CheckPosition(int x, int y, ChessPiece piece)
+        public int CheckPosition(int x, int y, ChessPiece piece) // kollar var alla pjäser står och returnerar värde på position
         {
             int value = 0;
             bool empty = true;
@@ -318,22 +318,26 @@ namespace NewProjectChess
             List<Position> sortedList = new List<Position>();
             var resultList = new List<Values>(); 
 
-            for (int i = 0; i < 2; ++i)
+            for (int i = 1; i < 2; ++i)
             {
-                resultVal = CheckPosition(xpos, i, piece);
-                if (resultVal != -1) 
+                resultVal = CheckPosition(xpos, ypos + i, piece);
+                if (resultVal > 0)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos, i)));
+                    resultVal = -1;
+                }
+                if (resultVal == 0) 
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos, ypos + i)));
                 }
 
-                if (firstMove)
+                if (firstMove && resultVal == 0)
                 {
-                    for (int j = 0; j < 3; j++)
+                    for (int j = 1; j < 3; j++)
                     {
-                        resultVal = CheckPosition(xpos, j, piece);     //i en if-sats som kollar om det är första draget om första draget kontrollera om bonden kan ta två steg annars skit i denna kollen.
+                        resultVal = CheckPosition(xpos, ypos + j, piece);     //i en if-sats som kollar om det är första draget om första draget kontrollera om bonden kan ta två steg annars skit i denna kollen.
                         if (resultVal != -1)
                         {
-                            resultList.Add(new Values(resultVal, new Position(xpos, j)));
+                            resultList.Add(new Values(resultVal, new Position(xpos, ypos + j)));
                         }
                         firstMove = false;
                     }       
@@ -343,18 +347,20 @@ namespace NewProjectChess
                     //finns de någon på denna positionen av motsatt färg
                     if (xpos + 1 == chessPiece.GetPositionX && ypos + 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
                     {
-                        resultVal = CheckPosition(xpos + i, i, piece);
+                        resultVal = CheckPosition(xpos + i, ypos + i, piece);
                         if (resultVal != -1)
                         {
-                            resultList.Add(new Values(resultVal, new Position(i, i)));
+                            resultList.Add(new Values(resultVal, new Position(xpos+ i, ypos + i)));
                         }
                     }
                     //finns de någon på denna positionen av motsatt färg
                     if (xpos - 1 == chessPiece.GetPositionX && ypos + 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
-                    resultVal = CheckPosition(-i, i, piece);
-                    if (resultVal != -1)
                     {
-                        resultList.Add(new Values(resultVal, new Position(-i, i)));
+                        resultVal = CheckPosition(xpos-i, ypos+i, piece);
+                        if (resultVal != -1)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + i)));
+                        }
                     }
                 }                         
             }

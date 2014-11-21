@@ -9,12 +9,15 @@ namespace NewProjectChess
     {
         private List<ChessPiece> pieceList = null;
         public Move PossibleMoves { get; set; }
+
         public Pieces()
         {
+
+
             pieceList = new List<ChessPiece>
             {
                 //Vita Pjäser
-                new Pawn(0, 1 ,"White"),
+                new Pawn(4, 6 ,"White"),
                 new Pawn(1, 1 ,"White"),
                 new Pawn(2, 1 ,"White"),
                 new Pawn(3, 1 ,"White"),
@@ -36,7 +39,7 @@ namespace NewProjectChess
                 new Pawn(1, 6 ,"Black"),
                 new Pawn(2, 6 ,"Black"),
                 new Pawn(3, 6 ,"Black"),
-                new Pawn(4, 6 ,"Black"),
+                new Pawn(4, 3 ,"Black"),
                 new Pawn(5, 6 ,"Black"),
                 new Pawn(6, 6 ,"Black"),
                 new Pawn(7, 6 ,"Black"),
@@ -49,6 +52,7 @@ namespace NewProjectChess
                 new Queen(3, 7, "Black"),
                 new King(4, 7, "Black")
             };
+            
         }
         public List<ChessPiece> GetPieceList() // Metod som kallas när man vill ha ut listan
         {
