@@ -117,20 +117,47 @@ namespace NewProjectChess
             int resultVal = -1; // står för om en pjäs med samma färg står på positionen så man inte kan gå dit
             List<Position> sortedList = new List<Position>();
             var resultList = new List<Values>(); //dictionary lista 
+            bool foundEnemy = false;
 
-            for (int i = 0; i < 8; i++)
+
+            for (int i = 1; i < 8; i++)
             {
-                resultVal = CheckPosition(xpos, i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(xpos, i)));
-                }
 
-                resultVal = CheckPosition(i, ypos, piece);
-                if (resultVal != -1)
+                resultVal = CheckPosition(xpos, ypos + i, piece);
+                if (!foundEnemy)
                 {
-                    resultList.Add(new Values(resultVal, new Position(i, ypos)));
+                    if (ypos + i > 7) // begränsing så han inte går utanför boarden
+                    {
+                        resultVal = -1;
+                    }
+                    if (resultVal != -1)
+                    {
+                        if (resultVal == 0)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos, ypos + i)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos, ypos + i)));
+                            foundEnemy = true;
+                        }
+                    }
                 }
+                //resultVal = CheckPosition(xpos + i, ypos, piece);
+                //if (resultVal != -1)
+                //{
+                //    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos)));
+                //}
+                //resultVal = CheckPosition(xpos - i, ypos, piece);
+                //if (resultVal != -1)
+                //{
+                //    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos)));
+                //}
+                //resultVal = CheckPosition(xpos, ypos - i, piece);
+                //if (resultVal != -1)
+                //{
+                //    resultList.Add(new Values(resultVal, new Position(xpos, ypos - i)));
+                //}
             }
             foreach (var item in resultList)
             {
@@ -154,16 +181,26 @@ namespace NewProjectChess
 
             for (int i = 1; i < 8; i++)
             {
-                resultVal = CheckPosition(xpos +i, i, piece);
+                resultVal = CheckPosition(xpos - i, ypos - i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos +i, i)));
+                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                }
+                resultVal = CheckPosition(xpos - i, ypos - i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos - i)));
+                }
+                resultVal = CheckPosition(xpos + i, ypos + i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos + i)));
                 }
 
-                resultVal = CheckPosition(i, ypos + i, piece);
+                resultVal = CheckPosition(xpos - i, ypos + i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(i, ypos+i)));
+                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + i)));
                 }
             }
             foreach (var item in resultList)
@@ -188,29 +225,49 @@ namespace NewProjectChess
 
             for (int i = 0; i < 8; i++)
             {
-                resultVal = CheckPosition(xpos, i, piece);
+                resultVal = CheckPosition(xpos, ypos + i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos, i)));
+                    resultList.Add(new Values(resultVal, new Position(xpos, ypos + i)));
                 }
 
-                resultVal = CheckPosition(i, ypos, piece);
+                resultVal = CheckPosition(xpos + i, ypos, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(i, ypos)));
+                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos)));
                 }
 
-                resultVal = CheckPosition(xpos + i, i, piece);
+                resultVal = CheckPosition(xpos + i, ypos + i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos + i, i)));
+                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos + i)));
                 }
 
-                resultVal = CheckPosition(i, ypos + i, piece);
+                resultVal = CheckPosition(xpos - i, ypos + i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(i, ypos + i)));
-                }           
+                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + i)));
+                }
+                resultVal = CheckPosition(xpos - i, ypos, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos)));
+                }
+                resultVal = CheckPosition(xpos, ypos - i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos, ypos - i)));
+                }
+                resultVal = CheckPosition(xpos - i, ypos - i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                }
+                resultVal = CheckPosition(xpos - i, ypos - i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos - i)));
+                }          
             }
             foreach (var item in resultList)
             {
@@ -271,30 +328,50 @@ namespace NewProjectChess
             List<Position> sortedList = new List<Position>();
             var resultList = new List<Values>(); //dictionary lista 
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 1; i < 2; i++)
             {
-                resultVal = CheckPosition(xpos, i, piece);
+                resultVal = CheckPosition(xpos,ypos + i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos, i)));
+                    resultList.Add(new Values(resultVal, new Position(xpos, ypos + i)));
                 }
 
-                resultVal = CheckPosition(i, ypos, piece);
+                resultVal = CheckPosition(xpos+i, ypos, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(i, ypos)));
-                }     
-
-                resultVal = CheckPosition(i, i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(xpos +i, i)));
+                    resultList.Add(new Values(resultVal, new Position(xpos+i, ypos)));
                 }
 
-                resultVal = CheckPosition(-i, i, piece);
+                resultVal = CheckPosition(xpos + i,ypos+ i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(i, i+ypos)));
+                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos + i)));
+                }
+
+                resultVal = CheckPosition(xpos-i, ypos+i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + i)));
+                }
+                resultVal = CheckPosition(xpos - i, ypos, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos)));
+                }
+                resultVal = CheckPosition(xpos, ypos -i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos, ypos - i)));
+                }
+                resultVal = CheckPosition(xpos- i, ypos - i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos -i, ypos - i)));
+                }
+                resultVal = CheckPosition(xpos - i, ypos - i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos - i)));
                 }
             }
             foreach (var item in resultList)
