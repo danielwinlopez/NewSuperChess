@@ -394,8 +394,9 @@ namespace NewProjectChess
             int resultVal = -1; // står för om en pjäs med samma färg står på positionen så man inte kan gå dit
             List<Position> sortedList = new List<Position>();
             var resultList = new List<Values>(); //dictionary lista 
+            bool foundEnemy = false;
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 1; i < 2; i++)
             {
                 for (int j = 0; j < 2; j++)
                 {
