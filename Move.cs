@@ -46,7 +46,7 @@ namespace NewProjectChess
                     break;
             }
         }
-        public int CheckPosition(int x, int y, ChessPiece piece)
+        public int CheckPosition(int x, int y, ChessPiece piece) // kollar var alla pjäser står och returnerar värde på position
         {
             int value = 0;
             bool empty = true;
@@ -117,20 +117,47 @@ namespace NewProjectChess
             int resultVal = -1; // står för om en pjäs med samma färg står på positionen så man inte kan gå dit
             List<Position> sortedList = new List<Position>();
             var resultList = new List<Values>(); //dictionary lista 
+            bool foundEnemy = false;
 
-            for (int i = 0; i < 8; i++)
+
+            for (int i = 1; i < 8; i++)
             {
-                resultVal = CheckPosition(xpos, i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(xpos, i)));
-                }
 
-                resultVal = CheckPosition(i, ypos, piece);
-                if (resultVal != -1)
+                resultVal = CheckPosition(xpos, ypos + i, piece);
+                if (!foundEnemy)
                 {
-                    resultList.Add(new Values(resultVal, new Position(i, ypos)));
+                    if (ypos + i > 7) // begränsing så han inte går utanför boarden
+                    {
+                        resultVal = -1;
+                    }
+                    if (resultVal != -1)
+                    {
+                        if (resultVal == 0)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos, ypos + i)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos, ypos + i)));
+                            foundEnemy = true;
+                        }
+                    }
                 }
+                //resultVal = CheckPosition(xpos + i, ypos, piece);
+                //if (resultVal != -1)
+                //{
+                //    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos)));
+                //}
+                //resultVal = CheckPosition(xpos - i, ypos, piece);
+                //if (resultVal != -1)
+                //{
+                //    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos)));
+                //}
+                //resultVal = CheckPosition(xpos, ypos - i, piece);
+                //if (resultVal != -1)
+                //{
+                //    resultList.Add(new Values(resultVal, new Position(xpos, ypos - i)));
+                //}
             }
             foreach (var item in resultList)
             {
@@ -154,16 +181,26 @@ namespace NewProjectChess
 
             for (int i = 1; i < 8; i++)
             {
-                resultVal = CheckPosition(xpos +i, i, piece);
+                resultVal = CheckPosition(xpos - i, ypos - i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos +i, i)));
+                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                }
+                resultVal = CheckPosition(xpos - i, ypos - i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos - i)));
+                }
+                resultVal = CheckPosition(xpos + i, ypos + i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos + i)));
                 }
 
-                resultVal = CheckPosition(i, ypos + i, piece);
+                resultVal = CheckPosition(xpos - i, ypos + i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(i, ypos+i)));
+                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + i)));
                 }
             }
             foreach (var item in resultList)
@@ -188,29 +225,49 @@ namespace NewProjectChess
 
             for (int i = 0; i < 8; i++)
             {
-                resultVal = CheckPosition(xpos, i, piece);
+                resultVal = CheckPosition(xpos, ypos + i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos, i)));
+                    resultList.Add(new Values(resultVal, new Position(xpos, ypos + i)));
                 }
 
-                resultVal = CheckPosition(i, ypos, piece);
+                resultVal = CheckPosition(xpos + i, ypos, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(i, ypos)));
+                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos)));
                 }
 
-                resultVal = CheckPosition(xpos + i, i, piece);
+                resultVal = CheckPosition(xpos + i, ypos + i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos + i, i)));
+                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos + i)));
                 }
 
-                resultVal = CheckPosition(i, ypos + i, piece);
+                resultVal = CheckPosition(xpos - i, ypos + i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(i, ypos + i)));
-                }           
+                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + i)));
+                }
+                resultVal = CheckPosition(xpos - i, ypos, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos)));
+                }
+                resultVal = CheckPosition(xpos, ypos - i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos, ypos - i)));
+                }
+                resultVal = CheckPosition(xpos - i, ypos - i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                }
+                resultVal = CheckPosition(xpos - i, ypos - i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos - i)));
+                }          
             }
             foreach (var item in resultList)
             {
@@ -272,30 +329,50 @@ namespace NewProjectChess
             List<Position> sortedList = new List<Position>();
             var resultList = new List<Values>(); //dictionary lista 
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 1; i < 2; i++)
             {
-                resultVal = CheckPosition(xpos, i, piece);
+                resultVal = CheckPosition(xpos,ypos + i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos, i)));
+                    resultList.Add(new Values(resultVal, new Position(xpos, ypos + i)));
                 }
 
-                resultVal = CheckPosition(i, ypos, piece);
+                resultVal = CheckPosition(xpos+i, ypos, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(i, ypos)));
-                }     
-
-                resultVal = CheckPosition(i, i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(xpos +i, i)));
+                    resultList.Add(new Values(resultVal, new Position(xpos+i, ypos)));
                 }
 
-                resultVal = CheckPosition(-i, i, piece);
+                resultVal = CheckPosition(xpos + i,ypos+ i, piece);
                 if (resultVal != -1)
                 {
-                    resultList.Add(new Values(resultVal, new Position(i, i+ypos)));
+                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos + i)));
+                }
+
+                resultVal = CheckPosition(xpos-i, ypos+i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + i)));
+                }
+                resultVal = CheckPosition(xpos - i, ypos, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos)));
+                }
+                resultVal = CheckPosition(xpos, ypos -i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos, ypos - i)));
+                }
+                resultVal = CheckPosition(xpos- i, ypos - i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos -i, ypos - i)));
+                }
+                resultVal = CheckPosition(xpos - i, ypos - i, piece);
+                if (resultVal != -1)
+                {
+                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos - i)));
                 }
             }
             foreach (var item in resultList)
@@ -317,47 +394,104 @@ namespace NewProjectChess
             int ypos = piece.GetPositionY; //sätter pjäsens y värde till ypos
             int resultVal = -1; // står för om en pjäs med samma färg står på positionen så man inte kan gå dit
             List<Position> sortedList = new List<Position>();
-            var resultList = new List<Values>(); 
-
-            for (int i = 0; i < 2; ++i)
+            var resultList = new List<Values>();
+            if (piece.GetColor()=="White")
             {
-                resultVal = CheckPosition(xpos, i, piece);
-                if (resultVal != -1) 
+                for (int i = 1; i < 2; ++i)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos, i)));
-                }
+                    resultVal = CheckPosition(xpos, ypos + i, piece);
+                    if (resultVal > 0)
+                    {
+                        resultVal = -1;
+                    }
+                    if (resultVal == 0)
+                    {
+                        resultList.Add(new Values(resultVal, new Position(xpos, ypos + i)));
+                    }
 
-                if (firstMove)
-                {
-                    for (int j = 0; j < 3; j++)
+                    if (firstMove && resultVal == 0)
                     {
-                        resultVal = CheckPosition(xpos, j, piece);     //i en if-sats som kollar om det är första draget om första draget kontrollera om bonden kan ta två steg annars skit i denna kollen.
-                        if (resultVal != -1)
+                        for (int j = 1; j < 3; j++)
                         {
-                            resultList.Add(new Values(resultVal, new Position(xpos, j)));
+                            resultVal = CheckPosition(xpos, ypos + j, piece);     //i en if-sats som kollar om det är första draget om första draget kontrollera om bonden kan ta två steg annars skit i denna kollen.
+                            if (resultVal != -1)
+                            {
+                                resultList.Add(new Values(resultVal, new Position(xpos, ypos + j)));
+                            }
+                            firstMove = false;
                         }
-                        firstMove = false;
-                    }       
+                    }
+                    foreach (var chessPiece in pieceList)
+                    {
+                        //finns de någon på denna positionen av motsatt färg
+                        if (xpos + 1 == chessPiece.GetPositionX && ypos + 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
+                        {
+                            resultVal = CheckPosition(xpos + i, ypos + i, piece);
+                            if (resultVal != -1)
+                            {
+                                resultList.Add(new Values(resultVal, new Position(xpos + i, ypos + i)));
+                            }
+                        }
+                        //finns de någon på denna positionen av motsatt färg
+                        if (xpos - 1 == chessPiece.GetPositionX && ypos + 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
+                        {
+                            resultVal = CheckPosition(xpos - i, ypos + i, piece);
+                            if (resultVal != -1)
+                            {
+                                resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + i)));
+                            }
+                        }
+                    }
                 }
-                foreach (var chessPiece in pieceList)
-                {  
-                    //finns de någon på denna positionen av motsatt färg
-                    if (xpos + 1 == chessPiece.GetPositionX && ypos + 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
+            }
+            else // gäller för black pawn
+            {
+                for (int i = 1; i < 2; ++i)
+                {
+                    resultVal = CheckPosition(xpos, ypos - i, piece);
+                    if (resultVal > 0)
                     {
-                        resultVal = CheckPosition(xpos + i, i, piece);
-                        if (resultVal != -1)
+                        resultVal = -1;
+                    }
+                    if (resultVal == 0)
+                    {
+                        resultList.Add(new Values(resultVal, new Position(xpos, ypos - i)));
+                    }
+
+                    if (firstMove && resultVal == 0)
+                    {
+                        for (int j = 1; j < 3; j++)
                         {
-                            resultList.Add(new Values(resultVal, new Position(i, i)));
+                            resultVal = CheckPosition(xpos, ypos - j, piece);     //i en if-sats som kollar om det är första draget om första draget kontrollera om bonden kan ta två steg annars skit i denna kollen.
+                            if (resultVal != -1)
+                            {
+                                resultList.Add(new Values(resultVal, new Position(xpos, ypos - j)));
+                            }
+                            firstMove = false;
                         }
                     }
-                    //finns de någon på denna positionen av motsatt färg
-                    if (xpos - 1 == chessPiece.GetPositionX && ypos + 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
-                    resultVal = CheckPosition(-i, i, piece);
-                    if (resultVal != -1)
+                    foreach (var chessPiece in pieceList)
                     {
-                        resultList.Add(new Values(resultVal, new Position(-i, i)));
+                        //finns de någon på denna positionen av motsatt färg
+                        if (xpos + 1 == chessPiece.GetPositionX && ypos - 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
+                        {
+                            resultVal = CheckPosition(xpos + i, ypos - i, piece);
+                            if (resultVal != -1)
+                            {
+                                resultList.Add(new Values(resultVal, new Position(xpos + i, ypos - i)));
+                            }
+                        }
+                        //finns de någon på denna positionen av motsatt färg
+                        if (xpos - 1 == chessPiece.GetPositionX && ypos - 1 == chessPiece.GetPositionY && piece.GetColor() != chessPiece.GetColor())
+                        {
+                            resultVal = CheckPosition(xpos - i, ypos - i, piece);
+                            if (resultVal != -1)
+                            {
+                                resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                            }
+                        }
                     }
-                }                         
+                }
             }
             foreach (var item in resultList)
             {
