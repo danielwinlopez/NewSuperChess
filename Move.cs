@@ -117,8 +117,7 @@ namespace NewProjectChess
             List<Values> sortedList = new List<Values>();
             var resultList = new List<Values>(); //dictionary lista 
             bool foundEnemy = false;
-
-
+            
             for (int i = 1; i < 8; i++)
             {
                 resultVal = CheckPosition(xpos, ypos + i, piece);
@@ -503,7 +502,6 @@ namespace NewProjectChess
             }
             return sortedList[0];
         }
-
         public Values MoveKnight(ChessPiece piece) // Scannar KnightMoves
         {
             int xpos = piece.GetPositionX; //sätter pjäsens x värde till xpos
@@ -513,7 +511,7 @@ namespace NewProjectChess
             var resultList = new List<Values>(); //dictionary lista 
             bool foundEnemy = false;
 
-            for (int i = 2; i < 4; i += 2)
+            for (int i = 2; i < 4; i = i + 2)
             {
                 for (int j = 1; j < 2; j++)
                 {
@@ -536,7 +534,6 @@ namespace NewProjectChess
                                 foundEnemy = true;
                             }
                         }
-
                     }
                     resultVal = CheckPosition(xpos + i, ypos - j, piece);
                     if (!foundEnemy)
@@ -557,7 +554,6 @@ namespace NewProjectChess
                                 foundEnemy = true;
                             }
                         }
-
                     }
                     resultVal = CheckPosition(xpos - i, ypos + j, piece);
                     if (!foundEnemy)
@@ -578,7 +574,6 @@ namespace NewProjectChess
                                 foundEnemy = true;
                             }
                         }
-
                     }
                     resultVal = CheckPosition(xpos - i, ypos - j, piece);
                     if (!foundEnemy)
@@ -599,11 +594,10 @@ namespace NewProjectChess
                                 foundEnemy = true;
                             }
                         }
-
                     }
                     for (int l = 1; l < 2; l++)
                     {
-                        for (int k = 2; k < 4; k += 2)
+                        for (int k = 2; k < 4; k = k + 2)
                         {
                             resultVal = CheckPosition(xpos + l, ypos + k, piece);
                             if (!foundEnemy)
@@ -624,7 +618,6 @@ namespace NewProjectChess
                                         foundEnemy = true;
                                     }
                                 }
-
                             }
                             resultVal = CheckPosition(xpos + l, ypos - k, piece);
                             if (!foundEnemy)
@@ -645,7 +638,6 @@ namespace NewProjectChess
                                         foundEnemy = true;
                                     }
                                 }
-
                             }
                             resultVal = CheckPosition(xpos - l, ypos + k, piece);
                             if (!foundEnemy)
@@ -666,7 +658,6 @@ namespace NewProjectChess
                                         foundEnemy = true;
                                     }
                                 }
-
                             }
                             resultVal = CheckPosition(xpos - l, ypos - k, piece);
                             if (!foundEnemy)
@@ -687,11 +678,9 @@ namespace NewProjectChess
                                         foundEnemy = true;
                                     }
                                 }
-
                             }
                         }
                     }
-
                 }
             }
             foreach (var item in resultList)
@@ -706,8 +695,6 @@ namespace NewProjectChess
             }
             return sortedList[0];
         }
-
-
         public Values MoveKing(ChessPiece piece) // Scannar KingMoves
         {
             int xpos = piece.GetPositionX; //sätter pjäsens x värde till xpos
@@ -881,8 +868,6 @@ namespace NewProjectChess
                     }
                 }
             }
-
-
             foreach (var item in resultList)
             {
                 for (int i = 10; i >= 0; i--)
@@ -979,7 +964,6 @@ namespace NewProjectChess
                         }
                     }
 
-
                     //finns de någon på denna positionen av motsatt färg
 
                     resultVal = CheckPosition(xpos + i, ypos - i, piece);
@@ -996,9 +980,7 @@ namespace NewProjectChess
                         resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
                     }
                 }
-
             }
-
             foreach (var item in resultList)
             {
                 for (int i = 10; i >= 0; i--)

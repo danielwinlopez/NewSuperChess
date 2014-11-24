@@ -82,6 +82,7 @@ namespace NewProjectChess
         public override string GetSign()
         {
             if (GetColor() == "White")
+
                 return "wK";
             else
             {

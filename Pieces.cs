@@ -13,7 +13,6 @@ namespace NewProjectChess
         public Pieces()
         {
 
-
             pieceList = new List<ChessPiece>
             {
                 //Vita Pjäser
