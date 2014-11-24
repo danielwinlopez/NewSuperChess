@@ -110,12 +110,12 @@ namespace NewProjectChess
             }
             return value;
         }
-        public List<Position> MoveRook(ChessPiece piece) // Scannar RookMoves
+        public Values MoveRook(ChessPiece piece) // Scannar RookMoves
         {
             int xpos = piece.GetPositionX; //sätter pjäsens x värde till xpos
             int ypos = piece.GetPositionY; //sätter pjäsens y värde till ypos
             int resultVal = -1; // står för om en pjäs med samma färg står på positionen så man inte kan gå dit
-            List<Position> sortedList = new List<Position>();
+            List<Values> sortedList = new List<Values>();
             var resultList = new List<Values>(); //dictionary lista 
             bool foundEnemy = false;
 
@@ -210,18 +210,18 @@ namespace NewProjectChess
                 {
                     if (item.key == i)
                     {
-                        sortedList.Add(item.position);
+                        sortedList.Add(new Values(item.key,new Position(item.position.x,item.position.y)));
                     }
                 }
             }
-            return sortedList;
+            return sortedList[0];
         }
-        public List<Position> MoveBishop(ChessPiece piece) // Scannar BishopMoves
+        public Values MoveBishop(ChessPiece piece) // Scannar BishopMoves
         {
             int xpos = piece.GetPositionX; //sätter pjäsens x värde till xpos
             int ypos = piece.GetPositionY; //sätter pjäsens y värde till ypos
             int resultVal = -1; // står för om en pjäs med samma färg står på positionen så man inte kan gå dit
-            List<Position> sortedList = new List<Position>();
+            List<Values> sortedList = new List<Values>();
             var resultList = new List<Values>();
 
             for (int i = 1; i < 8; i++)
@@ -254,18 +254,18 @@ namespace NewProjectChess
                 {
                     if (item.key == i)
                     {
-                        sortedList.Add(item.position);
+                        sortedList.Add(new Values(item.key, new Position(item.position.x, item.position.y)));
                     }
                 }
             }
-            return sortedList;
+            return sortedList[0];
         }
-        public List<Position> MoveQueen(ChessPiece piece) // Scannar QueenMoves
+        public Values MoveQueen(ChessPiece piece) // Scannar QueenMoves
         {
             int xpos = piece.GetPositionX; //sätter pjäsens x värde till xpos
             int ypos = piece.GetPositionY; //sätter pjäsens y värde till ypos
             int resultVal = -1; // står för om en pjäs med samma färg står på positionen så man inte kan gå dit
-            List<Position> sortedList = new List<Position>();
+            List<Values> sortedList = new List<Values>();
             var resultList = new List<Values>(); //dictionary lista 
             bool foundEnemy = false;
 
