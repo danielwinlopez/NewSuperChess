@@ -50,9 +50,9 @@ namespace NewProjectChess
         {
             int value = 0;
             bool empty = true;
-            //bool myPiece = false; // kan vi ta bort
+           
             bool friend = false;
-            //bool enemy = false; //kan vi ta bort
+           
             string type = null;
 
             foreach (var pieces in pieceList)
@@ -469,10 +469,10 @@ namespace NewProjectChess
                         }
                     }
                 }
-                resultVal = CheckPosition(xpos - i, ypos - i, piece);
+                resultVal = CheckPosition(xpos - i, ypos + i, piece);
                 if (!foundEnemy)
                 {
-                    if (xpos - i > 0 && ypos + i > 7) // begränsing så han inte går utanför boarden
+                    if (xpos - i < 0 && ypos + i > 7) // begränsing så han inte går utanför boarden
                     {
                         resultVal = -1;
                     }
@@ -480,11 +480,11 @@ namespace NewProjectChess
                     {
                         if (resultVal == 0)
                         {
-                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + i)));
                         }
                         else
                         {
-                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + i)));
                             foundEnemy = true;
                         }
                     }

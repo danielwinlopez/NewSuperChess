@@ -14,16 +14,19 @@ namespace NewProjectChess
             PrintBoard board = new PrintBoard();
             Pieces pieces = new Pieces();
             Move moves = new Move(pieces.GetPieceList());
-            int i = 0;
+            DoMove doMove = new DoMove();
             while (true)
             {
                 foreach (var piece in pieces.GetPieceList()) //TODO: vi måste automatisera x och y pos beroende på vilken pjäs vi skickar in så att det ökar efter pjäsens steg
                 {                    
                         //Console.Write(moves.CheckPosition(piece.GetPositionX, 0, piece)); // här sätter vi positionerna vi vill kolla!
                         //Console.WriteLine("=" + i++);//Console.WriteLine(moves.CanMove(piece));
-                    Console.WriteLine();
-                    moves.CanMove(piece); 
-     
+                    Console.WriteLine(piece.Describe() + " and i se the value " + moves.CheckPosition(piece.GetPositionX, 7, piece));
+                    moves.CanMove(piece);
+                    // doMove.SetPosition();
+
+
+
                 }
             pieces.setPieceList(pieces.GetPieceList());
             board.Board(pieces.GetPieceList());
