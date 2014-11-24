@@ -12,5 +12,10 @@ namespace NewProjectChess
         {
             this.color = color;
         }
+
+        public void Team()
+        {
+            
+        }
     }
 }

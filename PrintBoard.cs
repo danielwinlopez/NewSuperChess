@@ -29,7 +29,7 @@ namespace NewProjectChess
         {
             var board = new string[8,8];
             foreach (var piece in popPieces)
-            {
+            {              
                 board[piece.GetPositionX, piece.GetPositionY] = piece.GetSign();
             }
             return board;

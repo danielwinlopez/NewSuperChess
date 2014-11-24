@@ -60,8 +60,16 @@ namespace NewProjectChess
         }
         public override string Describe()
         {
-            return "I am a King, at postion "
-                   + GetPositionX + ", " + GetPositionY;
+            if (GetColor() == "White")
+            {
+                return "I am a White King, at postion "
+                  + GetPositionX + ", " + GetPositionY;
+            }
+            else
+            {
+                return "I am a Black King, at postion "
+                  + GetPositionX + ", " + GetPositionY;
+            }
         }
         public override string GetChessType() // kallar på denna när man vill ha ut typen
         {
