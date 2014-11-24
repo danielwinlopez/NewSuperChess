@@ -21,12 +21,18 @@ namespace NewProjectChess
                 {                    
                         //Console.Write(moves.CheckPosition(piece.GetPositionX, 0, piece)); // här sätter vi positionerna vi vill kolla!
                         //Console.WriteLine("=" + i++);//Console.WriteLine(moves.CanMove(piece));
+<<<<<<< HEAD
                     Console.WriteLine(piece.Describe() + " and i se the value " + moves.CheckPosition(piece.GetPositionX, 7, piece));
                     moves.CanMove(piece);
                     // doMove.SetPosition();
 
 
 
+=======
+                    //Console.WriteLine();
+                    moves.CanMove(piece); 
+     
+>>>>>>> origin/master
                 }
             pieces.setPieceList(pieces.GetPieceList());
             board.Board(pieces.GetPieceList());
