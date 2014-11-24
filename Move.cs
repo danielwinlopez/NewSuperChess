@@ -57,7 +57,6 @@ namespace NewProjectChess
 
             foreach (var pieces in pieceList)
             {
-                
                 if ( x == pieces.GetPositionX && y == pieces.GetPositionY && // kollar om det står en vän på platsen vi e på
                     piece.GetColor() == pieces.GetColor())
                 {
@@ -122,7 +121,6 @@ namespace NewProjectChess
 
             for (int i = 1; i < 8; i++)
             {
-
                 resultVal = CheckPosition(xpos, ypos + i, piece);
                 if (!foundEnemy)
                 {
@@ -223,29 +221,89 @@ namespace NewProjectChess
             int resultVal = -1; // står för om en pjäs med samma färg står på positionen så man inte kan gå dit
             List<Values> sortedList = new List<Values>();
             var resultList = new List<Values>();
+            bool foundEnemy = false;
 
             for (int i = 1; i < 8; i++)
             {
                 resultVal = CheckPosition(xpos - i, ypos - i, piece);
-                if (resultVal != -1)
+                if (!foundEnemy)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                    if (xpos - i < 0 && ypos - i < 0) // begränsing så han inte går utanför boarden
+                    {
+                        resultVal = -1;
+                    }
+                    if (resultVal != -1)
+                    {
+                        if (resultVal == 0)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                            foundEnemy = true;
+                        }
+                    }
                 }
-                resultVal = CheckPosition(xpos - i, ypos - i, piece);
-                if (resultVal != -1)
+                resultVal = CheckPosition(xpos + i, ypos - i, piece);
+                if (!foundEnemy)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos - i)));
+                    if (xpos + i > 7 && ypos - i < 0) // begränsing så han inte går utanför boarden
+                    {
+                        resultVal = -1;
+                    }
+                    if (resultVal != -1)
+                    {
+                        if (resultVal == 0)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos + i, ypos - i)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos + i, ypos - i)));
+                            foundEnemy = true;
+                        }
+                    }
                 }
                 resultVal = CheckPosition(xpos + i, ypos + i, piece);
-                if (resultVal != -1)
+                if (!foundEnemy)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos + i)));
+                    if (xpos + i > 7 && ypos + i > 7) // begränsing så han inte går utanför boarden
+                    {
+                        resultVal = -1;
+                    }
+                    if (resultVal != -1)
+                    {
+                        if (resultVal == 0)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos + i, ypos + i)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos + i, ypos + i)));
+                            foundEnemy = true;
+                        }
+                    }
                 }
-
-                resultVal = CheckPosition(xpos - i, ypos + i, piece);
-                if (resultVal != -1)
+                resultVal = CheckPosition(xpos - i, ypos - i, piece);
+                if (!foundEnemy)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + i)));
+                    if (xpos - i > 0 && ypos + i > 7) // begränsing så han inte går utanför boarden
+                    {
+                        resultVal = -1;
+                    }
+                    if (resultVal != -1)
+                    {
+                        if (resultVal == 0)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                            foundEnemy = true;
+                        }
+                    }
                 }
             }
             foreach (var item in resultList)
@@ -351,29 +409,86 @@ namespace NewProjectChess
                         }
                     }
                 }
-                
-     
+                resultVal = CheckPosition(xpos - i, ypos - i, piece);
+                if (!foundEnemy)
+                {
+                    if (xpos - i < 0 && ypos - i < 0) // begränsing så han inte går utanför boarden
+                    {
+                        resultVal = -1;
+                    }
+                    if (resultVal != -1)
+                    {
+                        if (resultVal == 0)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                            foundEnemy = true;
+                        }
+                    }
+                }
+                resultVal = CheckPosition(xpos + i, ypos - i, piece);
+                if (!foundEnemy)
+                {
+                    if (xpos + i > 7 && ypos - i < 0) // begränsing så han inte går utanför boarden
+                    {
+                        resultVal = -1;
+                    }
+                    if (resultVal != -1)
+                    {
+                        if (resultVal == 0)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos + i, ypos - i)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos + i, ypos - i)));
+                            foundEnemy = true;
+                        }
+                    }
+                }
                 resultVal = CheckPosition(xpos + i, ypos + i, piece);
-                if (resultVal != -1)
+                if (!foundEnemy)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos + i)));
+                    if (xpos + i > 7 && ypos + i > 7) // begränsing så han inte går utanför boarden
+                    {
+                        resultVal = -1;
+                    }
+                    if (resultVal != -1)
+                    {
+                        if (resultVal == 0)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos + i, ypos + i)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos + i, ypos + i)));
+                            foundEnemy = true;
+                        }
+                    }
                 }
-
-                resultVal = CheckPosition(xpos - i, ypos + i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + i)));
-                }               
                 resultVal = CheckPosition(xpos - i, ypos - i, piece);
-                if (resultVal != -1)
+                if (!foundEnemy)
                 {
-                    resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                    if (xpos - i > 0 && ypos - i < 0) // begränsing så han inte går utanför boarden
+                    {
+                        resultVal = -1;
+                    }
+                    if (resultVal != -1)
+                    {
+                        if (resultVal == 0)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                            foundEnemy = true;
+                        }
+                    }
                 }
-                resultVal = CheckPosition(xpos - i, ypos - i, piece);
-                if (resultVal != -1)
-                {
-                    resultList.Add(new Values(resultVal, new Position(xpos + i, ypos - i)));
-                }          
             }
             foreach (var item in resultList)
             {
@@ -395,22 +510,146 @@ namespace NewProjectChess
             List<Position> sortedList = new List<Position>();
             var resultList = new List<Values>(); //dictionary lista 
             bool foundEnemy = false;
-
-            for (int i = 1; i < 2; i++)
+            
+            for (int i = 0; i < 2; i += 2)
             {
                 for (int j = 0; j < 2; j++)
                 {
-                    for (int k = 0; k < 3; k++)
+                    resultVal = CheckPosition(xpos + i, ypos + j, piece);
+                    if (!foundEnemy)
                     {
-                        resultVal = CheckPosition(k, j, piece);
-                        if (resultVal != -1)
+                        if (xpos + i > 7 && ypos + j > 7) // begränsing så han inte går utanför boarden
                         {
-                            resultList.Add(new Values(resultVal, new Position(xpos + k, j)));
+                            resultVal =  -1;
                         }
-                        resultVal = CheckPosition(-k, j, piece);
                         if (resultVal != -1)
                         {
-                            resultList.Add(new Values(resultVal, new Position(k, j + ypos)));
+                            resultList.Add(new Values(resultVal, new Position(xpos + i, ypos + j)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos + i, ypos +  j)));
+                            foundEnemy = true;
+                        }
+                    }
+                    resultVal = CheckPosition(xpos + i, ypos - j, piece);
+                    if (!foundEnemy)
+                    {
+                        if (xpos + i > 7 && ypos - j < 0) // begränsing så han inte går utanför boarden
+                        {
+                            resultVal = -1;
+                        }
+                        if (resultVal != -1)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos + i, ypos - j)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos + i, ypos - j)));
+                            foundEnemy = true;
+                        }
+                    }
+                    resultVal = CheckPosition(xpos - i, ypos + j, piece);
+                    if (!foundEnemy)
+                    {
+                        if (xpos - i < 0 && ypos + j > 7) // begränsing så han inte går utanför boarden
+                        {
+                            resultVal = -1;
+                        }
+                        if (resultVal != -1)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + j)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + j)));
+                            foundEnemy = true;
+                        }
+                    }
+                    resultVal = CheckPosition(xpos - i, ypos - j, piece);
+                    if (!foundEnemy)
+                    {
+                        if (xpos - i < 0 && ypos - j < 0) // begränsing så han inte går utanför boarden
+                        {
+                            resultVal = -1;
+                        }
+                        if (resultVal != -1)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - j)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - j)));
+                            foundEnemy = true;
+                        }
+                    }
+
+                    resultVal = CheckPosition(xpos + i, ypos + j, piece);
+                    if (!foundEnemy)
+                    {
+                        if (ypos + i > 7 && xpos + j > 7) // begränsing så han inte går utanför boarden
+                        {
+                            resultVal = -1;
+                        }
+                        if (resultVal != -1)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(ypos + i, xpos + j)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(ypos + i, xpos + j)));
+                            foundEnemy = true;
+                        }
+                    }
+                    resultVal = CheckPosition(ypos + i, xpos - j, piece);
+                    if (!foundEnemy)
+                    {
+                        if (xpos + i > 7 && ypos - j < 0) // begränsing så han inte går utanför boarden
+                        {
+                            resultVal = -1;
+                        }
+                        if (resultVal != -1)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(ypos + i, xpos - j)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(ypos + i, xpos - j)));
+                            foundEnemy = true;
+                        }
+                    }
+                    resultVal = CheckPosition(ypos - i, xpos + j, piece);
+                    if (!foundEnemy)
+                    {
+                        if (xpos - i < 0 && ypos + j > 7) // begränsing så han inte går utanför boarden
+                        {
+                            resultVal = -1;
+                        }
+                        if (resultVal != -1)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(ypos - i, xpos + j)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(ypos - i, xpos + j)));
+                            foundEnemy = true;
+                        }
+                    }
+                    resultVal = CheckPosition(ypos - i, xpos - j, piece);
+                    if (!foundEnemy)
+                    {
+                        if (xpos - i < 0 && ypos - j < 0) // begränsing så han inte går utanför boarden
+                        {
+                            resultVal = -1;
+                        }
+                        if (resultVal != -1)
+                        {
+                            resultList.Add(new Values(resultVal, new Position(ypos - i, xpos - j)));
+                        }
+                        else
+                        {
+                            resultList.Add(new Values(resultVal, new Position(ypos - i, xpos - j)));
+                            foundEnemy = true;
                         }
                     }
                 }
@@ -456,7 +695,6 @@ namespace NewProjectChess
                 {
                     resultList.Add(new Values(resultVal, new Position(xpos+i, ypos)));
                 }
-
                 resultVal = CheckPosition(xpos + i,ypos+ i, piece);
                 if (xpos + i > 7 || ypos + i > 7) // begränsing så han inte går utanför boarden
                 {
@@ -466,7 +704,6 @@ namespace NewProjectChess
                 {
                     resultList.Add(new Values(resultVal, new Position(xpos + i, ypos + i)));
                 }
-
                 resultVal = CheckPosition(xpos-i, ypos+i, piece);
                 if (xpos - i < 0 || ypos + i > 7) // begränsing så han inte går utanför boarden
                 {

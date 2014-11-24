@@ -21,7 +21,7 @@ namespace NewProjectChess
                 {                    
                         //Console.Write(moves.CheckPosition(piece.GetPositionX, 0, piece)); // här sätter vi positionerna vi vill kolla!
                         //Console.WriteLine("=" + i++);//Console.WriteLine(moves.CanMove(piece));
-                    Console.WriteLine();
+                    //Console.WriteLine();
                     moves.CanMove(piece); 
      
                 }
