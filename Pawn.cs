@@ -57,6 +57,5 @@ namespace NewProjectChess
                 return "bP";
             }
         }
-
     }
 }
