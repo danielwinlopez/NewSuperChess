@@ -8,16 +8,15 @@ using System.Text;
 using Microsoft.Win32.SafeHandles;
 
 namespace NewProjectChess
-
-{   
+{
     public class Move
     {
-        PrintBoard board = new PrintBoard();  
+        PrintBoard board = new PrintBoard();
         private List<ChessPiece> pieceList;
         public Values value { get; set; }
         public Move(List<ChessPiece> pieceList)
         {
-            this.pieceList = pieceList;        
+            this.pieceList = pieceList;
         }
         public List<Values> PossibleMoves(ChessPiece piece) // metod som avgör vilket "Move" som ska tas beroende vilken pjäs den tar in
         {
@@ -28,16 +27,16 @@ namespace NewProjectChess
                     valueList.Add(MoveRook(piece));
                     break;
                 case "Bishop":
-                   valueList.Add(MoveBishop(piece));
+                    valueList.Add(MoveBishop(piece));
                     break;
                 case "Knight":
                     valueList.Add(MoveKnight(piece));
                     break;
                 case "Queen":
-                   valueList.Add(MoveQueen(piece));
+                    valueList.Add(MoveQueen(piece));
                     break;
                 case "King":
-                   valueList.Add(MoveKing(piece));
+                    valueList.Add(MoveKing(piece));
                     break;
                 case "Pawn":
                     valueList.Add(MovePawn(piece));
@@ -53,12 +52,12 @@ namespace NewProjectChess
             int value = 0;
             bool empty = true;
             bool friend = false;
-           
+
             string type = null;
 
             foreach (var pieces in pieceList)
             {
-                if ( x == pieces.GetPositionX && y == pieces.GetPositionY && // kollar om det står en vän på platsen vi e på
+                if (x == pieces.GetPositionX && y == pieces.GetPositionY && // kollar om det står en vän på platsen vi e på
                     piece.GetColor() == pieces.GetColor())
                 {
                     friend = true;
@@ -76,11 +75,11 @@ namespace NewProjectChess
             {
                 value = 0;
             }
-            else if (friend)                      
-            {                                
+            else if (friend)
+            {
                 value = -1;
             }
-            else 
+            else
             {
                 switch (type) //värde på fienden
                 {
@@ -201,7 +200,7 @@ namespace NewProjectChess
                             foundEnemy = true;
                         }
                     }
-                }                                       
+                }
             }
             foreach (var item in resultList)
             {
@@ -209,7 +208,7 @@ namespace NewProjectChess
                 {
                     if (item.key == i)
                     {
-                        sortedList.Add(new Values(item.key,new Position(item.position.x,item.position.y)));
+                        sortedList.Add(new Values(item.key, new Position(item.position.x, item.position.y)));
                     }
                 }
             }
@@ -286,10 +285,10 @@ namespace NewProjectChess
                         }
                     }
                 }
-                resultVal = CheckPosition(xpos - i, ypos - i, piece);
+                resultVal = CheckPosition(xpos - i, ypos + i, piece);// kan varit felet här ypos - i stod det....
                 if (!foundEnemy)
                 {
-                    if (xpos - i > 0 || ypos + i > 7) // begränsing så han inte går utanför boarden
+                    if (xpos - i < 0 || ypos + i > 7) // begränsing så han inte går utanför boarden || ÄVEN FEL TECKEN i > 0
                     {
                         resultVal = -1;
                     }
@@ -297,11 +296,11 @@ namespace NewProjectChess
                     {
                         if (resultVal == 0)
                         {
-                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + i)));// samma här
                         }
                         else
                         {
-                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos - i)));
+                            resultList.Add(new Values(resultVal, new Position(xpos - i, ypos + i)));// samma här
                             foundEnemy = true;
                         }
                     }
@@ -537,7 +536,7 @@ namespace NewProjectChess
                                 foundEnemy = true;
                             }
                         }
-                        
+
                     }
                     resultVal = CheckPosition(xpos + i, ypos - j, piece);
                     if (!foundEnemy)
@@ -579,7 +578,7 @@ namespace NewProjectChess
                                 foundEnemy = true;
                             }
                         }
-                      
+
                     }
                     resultVal = CheckPosition(xpos - i, ypos - j, piece);
                     if (!foundEnemy)
@@ -600,7 +599,7 @@ namespace NewProjectChess
                                 foundEnemy = true;
                             }
                         }
-                        
+
                     }
                     for (int l = 1; l < 2; l++)
                     {
@@ -625,7 +624,7 @@ namespace NewProjectChess
                                         foundEnemy = true;
                                     }
                                 }
-                              
+
                             }
                             resultVal = CheckPosition(xpos + l, ypos - k, piece);
                             if (!foundEnemy)
@@ -646,7 +645,7 @@ namespace NewProjectChess
                                         foundEnemy = true;
                                     }
                                 }
-                                
+
                             }
                             resultVal = CheckPosition(xpos - l, ypos + k, piece);
                             if (!foundEnemy)
@@ -660,14 +659,14 @@ namespace NewProjectChess
                                     if (resultVal == 0)
                                     {
                                         resultList.Add(new Values(resultVal, new Position(xpos - l, ypos + k)));
-                                    }                                                          
-                                    else                                                       
-                                    {                                                          
+                                    }
+                                    else
+                                    {
                                         resultList.Add(new Values(resultVal, new Position(xpos - l, ypos + k)));
                                         foundEnemy = true;
                                     }
                                 }
-                                
+
                             }
                             resultVal = CheckPosition(xpos - l, ypos - k, piece);
                             if (!foundEnemy)
@@ -688,7 +687,7 @@ namespace NewProjectChess
                                         foundEnemy = true;
                                     }
                                 }
-                              
+
                             }
                         }
                     }
@@ -883,7 +882,7 @@ namespace NewProjectChess
                 }
             }
 
-            
+
             foreach (var item in resultList)
             {
                 for (int i = 10; i >= 0; i--)
@@ -999,7 +998,7 @@ namespace NewProjectChess
                 }
 
             }
-            
+
             foreach (var item in resultList)
             {
                 for (int i = 10; i >= 0; i--)
