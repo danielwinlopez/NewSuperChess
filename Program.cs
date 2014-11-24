@@ -15,28 +15,26 @@ namespace NewProjectChess
             Pieces pieces = new Pieces();
             Move moves = new Move(pieces.GetPieceList());
             DoMove doMove = new DoMove();
+
+            int i = 0;
             while (true)
             {
                 foreach (var piece in pieces.GetPieceList()) //TODO: vi måste automatisera x och y pos beroende på vilken pjäs vi skickar in så att det ökar efter pjäsens steg
-                {                    
-                        //Console.Write(moves.CheckPosition(piece.GetPositionX, 0, piece)); // här sätter vi positionerna vi vill kolla!
-                        //Console.WriteLine("=" + i++);//Console.WriteLine(moves.CanMove(piece));
-<<<<<<< HEAD
-                    Console.WriteLine(piece.Describe() + " and i se the value " + moves.CheckPosition(piece.GetPositionX, 7, piece));
-                    moves.CanMove(piece);
-                    // doMove.SetPosition();
+                {
+                    //Console.Write(moves.CheckPosition(piece.GetPositionX, 5, piece)); // här sätter vi positionerna vi vill kolla!
+                    //Console.WriteLine("=" + i++);//Console.WriteLine(moves.CanMove(piece));
 
-
-
-=======
-                    //Console.WriteLine();
-                    moves.CanMove(piece); 
-     
->>>>>>> origin/master
+                    
+                    piece.GetPositionX = doMove.GetBestMove(moves.PossibleMoves(piece)).x;
+                    piece.GetPositionY = doMove.GetBestMove(moves.PossibleMoves(piece)).y;
+                    
+                    Console.ReadKey();
+                    Console.Clear();
+                    board.Board(pieces.GetPieceList());
                 }
-            pieces.setPieceList(pieces.GetPieceList());
-            board.Board(pieces.GetPieceList());
-            Console.ReadLine();
+            
+            
+                
             }
         }
     }

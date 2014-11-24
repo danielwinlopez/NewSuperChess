@@ -6,29 +6,31 @@ using System.Threading.Tasks;
 
 namespace NewProjectChess
 {
-    public class DoMove
+    class DoMove
     {
-        
-
+        private Pieces pieces;
+        private Move moves;
         public DoMove()
         {
-            
+            pieces = new Pieces();
+            moves = new Move(pieces.GetPieceList());
         }
 
-        public Position SetPosition(List<List<Position>> positionList)
+        public Position GetBestMove(List<Values> values)
         {
-            List<Position>list = new List<Position>();
-            foreach (var positions in positionList)
+            List<Position>positions = new List<Position>();
+            foreach (var value in values)
             {
-                Console.WriteLine(positions[0].x +" "+ positions[0].y);
-                list.Add(new Position(positions[0].x,positions[0].y));
-                Console.ReadKey();
+                for (int i = 10; i >= 0; i--)
+                {
+                    if (value.key == i)
+                    {
+                        positions.Add(new Position(value.position.x,value.position.y));
+                    }
+                }
             }
-            return list[0];
+            return new Position(positions[0].x,positions[0].y);
         }
-
-
-
 
     }
 }

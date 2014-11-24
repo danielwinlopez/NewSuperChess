@@ -25,14 +25,14 @@ namespace NewProjectChess
                 new Pawn(5, 1 ,"White"),
                 new Pawn(6, 1 ,"White"),
                 new Pawn(7, 1 ,"White"),
-                new Knight(6, 0, "White"),
-                new Knight(1, 0, "White"),
+                //new Knight(6, 0, "White"),
+                //new Knight(1, 0, "White"),
                 new Bishop(2, 0, "White"),
                 new Bishop(5, 0, "White"),
                 new Rook(0, 0, "White"),
                 new Rook(7, 0, "White"),
                 new Queen(4, 0, "White"),
-                new King(3, 0, "White"),         
+               // new King(3, 0, "White"),         
 
                 //Svarta Pjäser
                 new Pawn(0, 6 ,"Black"),
@@ -43,14 +43,14 @@ namespace NewProjectChess
                 new Pawn(5, 6 ,"Black"),
                 new Pawn(6, 6 ,"Black"),
                 new Pawn(7, 6 ,"Black"),
-                new Knight(6, 7, "Black"),
-                new Knight(1, 7, "Black"),
+                //new Knight(6, 7, "Black"),
+                //new Knight(1, 7, "Black"),
                 new Bishop(2, 7, "Black"),
                 new Bishop(5, 7, "Black"),
                 new Rook(7, 7, "Black"),
                 new Rook(0, 7, "Black"),
                 new Queen(3, 7, "Black"),
-                new King(4, 7, "Black")
+                //new King(4, 7, "Black")
             };
             
         }
