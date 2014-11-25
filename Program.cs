@@ -12,32 +12,35 @@ namespace NewProjectChess
         private static void Main(string[] args)
         {
             PrintBoard board = new PrintBoard();
-            Pieces pieces = new Pieces();
-            Move moves = new Move(pieces.GetPieceList());
-            DoMove doMove = new DoMove();
-            bool whiteTurn = true;
-            int i = 0;
+
+
+            Game game = new Game();
+            //DoMove doMove = new DoMove();
+            // bool whiteTurn = true;
+
             while (true)
             {
+                //List<ChessPiece> whiteList = new List<ChessPiece>();
+                //List<ChessPiece> blackList = new List<ChessPiece>();                   
+                Console.Clear();
+                board.Board(game.pieceList.GetPieceList());
+                Console.ReadKey();
+                game.WhiteTurn();
+                Console.Clear();
+                board.Board(game.pieceList.GetPieceList());
+                Console.ReadKey();
+                game.BlackTurn();
+                Console.Clear();
+                board.Board(game.pieceList.GetPieceList());
+                Console.Clear();
+                board.Board(game.pieceList.GetPieceList());
 
-                List<ChessPiece> whiteList = new List<ChessPiece>();
-                List<ChessPiece> blackList = new List<ChessPiece>();
-  
-                foreach (var piece in pieces.GetPieceList())
-                {     
-                    Console.Clear();
-                    board.Board(pieces.GetPieceList());
-                    Console.WriteLine(piece.Describe());
-                    
-                    piece.GetPositionX = doMove.GetBestMove(moves.PossibleMoves(piece)).x;
-                    piece.GetPositionY = doMove.GetBestMove(moves.PossibleMoves(piece)).y;
+                //piece.GetPositionX = doMove.GetBestMove(moves.PossibleMoves(piece)).x;
+                //piece.GetPositionY = doMove.GetBestMove(moves.PossibleMoves(piece)).y;
 
-                    Console.ReadKey();        
-                }
 
-                
+
             }
-
         }
     }
 }

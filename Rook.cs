@@ -15,7 +15,7 @@ namespace NewProjectChess
             GetPositionY = y;
             this.color = color;
                                 //Uppåt
-            Moves.Add(new List<Position>
+            movePattern.Add(new List<Position>
             {
                 new Position(0, 1),
                 new Position(0, 2),
@@ -26,7 +26,7 @@ namespace NewProjectChess
                 new Position(0, 7)
             });
                                     //Neråt
-            Moves.Add(new List<Position>
+            movePattern.Add(new List<Position>
             {
                 new Position(0, -1),
                 new Position(0, -2),
@@ -37,7 +37,7 @@ namespace NewProjectChess
                 new Position(0, -7)
             });
                                     //vänster
-            Moves.Add(new List<Position>
+            movePattern.Add(new List<Position>
             {
                 new Position(-1, 0),
                 new Position(-2, 0),
@@ -48,7 +48,7 @@ namespace NewProjectChess
                 new Position(-7, 0)
             });
                                     //höger
-            Moves.Add(new List<Position>
+            movePattern.Add(new List<Position>
             {
                 new Position(1, 0),
                 new Position(2, 0),

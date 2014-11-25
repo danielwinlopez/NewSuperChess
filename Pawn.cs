@@ -8,31 +8,54 @@ namespace NewProjectChess
 {
     class Pawn : ChessPiece
     {
-        public static List<List<Position>> Moves = new List<List<Position>>();
+
 
         public Pawn(int x, int y, string color)
         {
+            
             GetPositionX = x;
             GetPositionY = y;
             this.color = color;
-            
-            Moves.Add(new List<Position>
+            if (GetColor() == "Black")
             {
-                new Position(0, 1)
-            });       
-            Moves.Add(new List<Position>
+                movePattern.Add(new List<Position>
+                {
+                    new Position(0, 1)
+                });
+                movePattern.Add(new List<Position>
+                {
+                    new Position(0, 2)
+                });
+                movePattern.Add(new List<Position>
+                {
+                    new Position(-1, 1)
+                });
+                movePattern.Add(new List<Position>
+                {
+                    new Position(1, 1)
+                });
+            }
+            else
             {
-                new Position(0, 2)
-            });                            
-            Moves.Add(new List<Position>
-            {
-                new Position(-1, 1)
-            });                                   
-            Moves.Add(new List<Position>
-            {
-                new Position(1, 1)
-            });                               
-       }
+                movePattern.Add(new List<Position>
+                {
+                    new Position(0, -1)
+                });
+                movePattern.Add(new List<Position>
+                {
+                    new Position(0, -2)
+                });
+                movePattern.Add(new List<Position>
+                {
+                    new Position(-1, -1)
+                });
+                movePattern.Add(new List<Position>
+                {
+                    new Position(1, -1)
+                });
+            }
+
+        }
         public override string Describe()
         {
             if (GetColor() == "White")
@@ -45,7 +68,7 @@ namespace NewProjectChess
                 return "I am a Black Pawn, at postion "
                   + GetPositionX + ", " + GetPositionY;
             }
-           
+
         }
         public override string GetChessType()// kallar på denna när man vill ha ut typen
         {
