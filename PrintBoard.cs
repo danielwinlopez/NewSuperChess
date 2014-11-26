@@ -27,7 +27,7 @@ namespace NewProjectChess
             }
             
         }
-        public string[,] FillBoard(List<ChessPiece> popPieces)
+        public string[,] FillBoard(List<ChessPiece> popPieces) // fyller boarden med pjäser
         {
             var board = new string[8,8];
             foreach (var piece in popPieces)

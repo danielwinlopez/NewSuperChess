@@ -31,7 +31,7 @@ namespace NewProjectChess
             piece.GetPositionX = position.x;
             piece.GetPositionY = position.y;        
         }
-
+        
         public void EraseEnemy(Position mypos)
         {
             ChessPiece piece = null;

@@ -25,7 +25,7 @@ namespace NewProjectChess
              List<ChessPiece>Pieces = new List<ChessPiece>();
             foreach (var piece in pieceList)
             {
-                if (piece.GetColor() != player.Team())
+                if (piece.GetColor() == player.Team())
                 {
                     Pieces.Add(piece);
                 }             
@@ -92,6 +92,7 @@ namespace NewProjectChess
                 {
                     foreach (var move in moveList)
                     {
+                        //attackmove
                         var possibleMove = new Position(move.x + piece.GetPositionX, move.y + piece.GetPositionY);
                         if (IsInsideGameboard(possibleMove) && IsOccupied(possibleMove) && IsEnemy(possibleMove, piece) && DiagnolMove(possibleMove, piece))
                         {
@@ -100,19 +101,20 @@ namespace NewProjectChess
                             piece.canKill = true;
                             break;
                         }
+                        //Go forward
                         if (IsInsideGameboard(possibleMove) && !IsOccupied(possibleMove) && VerticalMove(possibleMove,piece))
                         {
                             piece.MovePositions.Add(possibleMove);
                             piece.canMove = true;
                         }
+                        //obstacle in the way
                         if (IsInsideGameboard(possibleMove) && IsOccupied(possibleMove) && VerticalMove(possibleMove, piece))
                         {
                             break;
                         }
 
                     }
-                }
-            
+                } 
         }
 
         public bool VerticalMove(Position possibleMove, ChessPiece piece)
