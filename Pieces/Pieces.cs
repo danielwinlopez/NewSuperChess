@@ -8,7 +8,6 @@ namespace NewProjectChess
     public class Pieces
     {
         private List<ChessPiece> pieceList = null;
-        public Move PossibleMoves { get; set; }
 
         public Pieces()
         {

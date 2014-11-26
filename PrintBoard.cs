@@ -10,6 +10,7 @@ namespace NewProjectChess
     {
         public void Board(List<ChessPiece>piece )
         {
+            Console.Clear();
             var signBoard = FillBoard(piece);
 
             for (var y = 0; y < 8; y++)
@@ -24,6 +25,7 @@ namespace NewProjectChess
                 }
                 Console.WriteLine();
             }
+            
         }
         public string[,] FillBoard(List<ChessPiece> popPieces)
         {

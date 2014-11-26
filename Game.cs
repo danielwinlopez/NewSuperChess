@@ -7,21 +7,32 @@ namespace NewProjectChess
 {
     public class Game
     {
-        public Pieces pieceList;
+        public Pieces PieceList;
         private Player Wplayer;
         private Player Bplayer;
+        private PrintBoard printBoard;
 
         public Game()
         {
-           pieceList = new Pieces();
-            Wplayer = new Player("White",pieceList.GetPieceList());
-            Bplayer = new Player("Black", pieceList.GetPieceList());
+            printBoard = new PrintBoard();
+           PieceList = new Pieces();
+            Wplayer = new Player("White",PieceList.GetPieceList());
+            Bplayer = new Player("Black", PieceList.GetPieceList());
 
         }
 
         public void StartGame()
         {
-            
+            while (true)
+            {
+                printBoard.Board(PieceList.GetPieceList());
+                Console.ReadKey();
+                WhiteTurn();
+                printBoard.Board(PieceList.GetPieceList());
+                Console.ReadKey();
+                BlackTurn();
+                printBoard.Board(PieceList.GetPieceList());
+            }
         }
 
         public void BlackTurn()
@@ -41,7 +52,7 @@ namespace NewProjectChess
 
         public void clearAll()
         {
-            foreach (var chessPiece in pieceList.GetPieceList())
+            foreach (var chessPiece in PieceList.GetPieceList())
             {
                 chessPiece.canMove = false;
                 chessPiece.canKill = false;

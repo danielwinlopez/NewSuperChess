@@ -11,37 +11,27 @@ namespace NewProjectChess
     {
         private static void Main(string[] args)
         {
-            PrintBoard board = new PrintBoard();
-
-
             Game game = new Game();
-            //DoMove doMove = new DoMove();
-            // bool whiteTurn = true;
-
-            while (true)
-            {
-                //List<ChessPiece> whiteList = new List<ChessPiece>();
-                //List<ChessPiece> blackList = new List<ChessPiece>();                   
-                Console.Clear();
-                board.Board(game.pieceList.GetPieceList());
-                Console.ReadKey();
-                game.WhiteTurn();
-                Console.Clear();
-                board.Board(game.pieceList.GetPieceList());
-                Console.ReadKey();
-                game.BlackTurn();
-                Console.Clear();
-                board.Board(game.pieceList.GetPieceList());
-                Console.Clear();
-                board.Board(game.pieceList.GetPieceList());
-
-                //piece.GetPositionX = doMove.GetBestMove(moves.PossibleMoves(piece)).x;
-                //piece.GetPositionY = doMove.GetBestMove(moves.PossibleMoves(piece)).y;
-
-
-
-            }
+            game.StartGame();          
         }
     }
 }
+
+
+
+// Belongs to the old code
+//PrintBoard board = new PrintBoard();
+//DoMove doMove = new DoMove();
+//Pieces pieceList = new Pieces();
+//while (true)
+//{                                            
+
+//foreach (var piece in pieceList.GetPieceList())
+//{
+//    //piece.GetPositionX = doMove.GetBestMove(moves.PossibleMoves(piece)).x;
+//    //piece.GetPositionY = doMove.GetBestMove(moves.PossibleMoves(piece)).y;
+//    //Console.ReadKey();
+//}
+
+//}
 
