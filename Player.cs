@@ -29,9 +29,7 @@ namespace NewProjectChess
             var position = piece.MovePositions[new Random().Next(0, piece.MovePositions.Count)];
             EraseEnemy(position);
             piece.GetPositionX = position.x;
-            piece.GetPositionY = position.y;
-
-           
+            piece.GetPositionY = position.y;        
         }
 
         public void EraseEnemy(Position mypos)
